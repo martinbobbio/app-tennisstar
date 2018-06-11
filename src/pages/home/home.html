@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="calendar" style="margin-right: 20px;"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <ion-icon name="person-add" style="margin-right: 20px;"></ion-icon>
+      </button>
+      <button #mycontent (click)="menuCtrl.toggle();" ion-button icon-only>
+        <ion-icon name="menu" style="margin-right: 10px;"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-menu [content]="mycontent">
+  <ion-content>
+    <ion-item-group>
+      <ion-item-divider color="blue">Perfil</ion-item-divider>
+      <ion-item>Ver perfil</ion-item>
+      <ion-item>Editar perfil</ion-item>
+      <ion-item>Cambiar contraseña</ion-item>
+      <ion-item>Lista de amigos</ion-item>
+      <ion-item>Salir</ion-item>
+      <ion-item-divider color="red">Torneos</ion-item-divider>
+      <ion-item>Crear torneo</ion-item>
+      <ion-item>Ver torneos</ion-item>
+      <ion-item>Mis torneos</ion-item>
+      <ion-item-divider color="yellow">Partidos</ion-item-divider>
+      <ion-item>Crear partido</ion-item>
+      <ion-item>Ver partidos</ion-item>
+      <ion-item-divider color="green">Clubes</ion-item-divider>
+      <ion-item>Asignar club favorito</ion-item>
+      <ion-item-divider color="dark">Administrador</ion-item-divider>
+      <ion-item>Estadísticas</ion-item>
+      <ion-item>Notificaciones</ion-item>
+    </ion-item-group>
+  </ion-content>
+</ion-menu>
+
+
+<ion-content>
+  <app-header></app-header>
+
+  <ng-container *ngIf="completeCharge">
+      <map [fullPlayer]="fullPlayer" [fullGame]="fullGame" [fullCount]="fullCount" [completeCharge]="completeCharge"></map>
+  </ng-container>
+
+  <ng-container *ngIf="!userAnom">
+      <home-explorar [fullPlayer]="fullPlayer" [fullGame]="fullGame"></home-explorar>
+  </ng-container>
+
+  <ng-container *ngIf="notices">
+      <notices [notices] = "notices"></notices>
+  </ng-container>
+
+</ion-content>

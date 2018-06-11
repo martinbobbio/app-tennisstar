@@ -1,0 +1,110 @@
+<ngx-loading-bar color="#ff9800" [includeSpinner]="false" height="4px"></ngx-loading-bar>
+
+<div *ngIf="mobile && isNewUser != null" class="fixed-action-btn">
+  <a class="btn-floating btn-large green">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li><a (click)="openRequests()" class="btn-floating orange"><i class="material-icons">group_add</i></a></li>
+    <li><a (click)="viewEvents()" class="btn-floating orange"><i class="material-icons">event</i></a></li>
+    <li><a href="/explorar" class="btn-floating orange"><i class="material-icons">explore</i></a></li>
+  </ul>
+</div>
+
+<aside class="sidebar-left-collapse green" style="z-index:9999">
+  
+  <div *ngIf="profile && auth.isAuthenticated()" class="center-align ">
+    <div class="col s4">
+      <img src="{{profile.picture}}" class="circle center-align" width="50" height="50">
+    </div>
+    <div class="col s8">
+      <p class="bold">{{profile.name}}</p>
+    </div>
+  </div>
+
+  
+  <div *ngIf="isNewUser" class="center-align">
+  <img src="{{path}}{{pathImg}}" class="circle" height="50" width="50">
+  <p *ngIf="username != null && mobile" class="bold center-align" style="margin-bottom:20px;">
+      <a class="white-text" href="/profile">
+        {{username}}
+      </a>
+  </p>
+  <p *ngIf="isAdmin == 1" class="bold black-text">ADMIN</p>
+  </div>
+
+  <div class="sidebar-links">
+
+    <div class="links link-blue selected">
+
+      <a class="pointer">
+        <i class="fa fa-user"></i>Perfil
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="/profile" >Ver perfil</a></li>
+        <li><a href="/completePerfil">Editar perfil</a></li>
+        <li><a (click)="changuePassword()" class="pointer">Cambiar contraseña</a></li>
+        <li><a (click)="viewFriends()" class="pointer">Lista de amigos</a></li>
+        <li><a (click)="logout()" class="pointer">Salir</a></li>
+      </ul>
+
+    </div>
+
+    <div class="links link-red">
+
+      <a class="pointer">
+        <i class="fa fa-trophy"></i>Torneos
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="/explorar/tournament">Crear torneo</a></li>
+        <li><a href="/explorar/verTorneos">Ver torneos</a></li>
+        <li><a (click)="adminTournament()" class="pointer">Mis torneos</a></li>
+      </ul>
+
+    </div>
+
+    <div class="links link-yellow">
+
+      <a class="pointer">
+        <i class="fa fa-calendar-o"></i>Partidos
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="/explorar/match">Crear partido</a></li>
+        <li><a href="/explorar/verPartidos">Ver partidos</a></li>
+      </ul>
+
+    </div>
+
+    <div class="links link-green">
+
+      <a class="pointer">
+        <i class="fa fa-map-marker"></i>Clubes
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="/explorar/favoriteClub" class="pointer">Añadir club favorito</a></li>
+      </ul>
+
+    </div>
+
+    <div *ngIf="isAdmin == 1" class="links link-black">
+
+      <a class="pointer">
+        <i class="fa fa-unlock"></i>Administrador
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="/admin/estadisticas" class="pointer">Estadísticas</a></li>
+        <li><a href="/admin/notificaciones" class="pointer">Notificaciones</a></li>
+      </ul>
+
+    </div>
+
+  </div>
+  <br><br><br>
+
+</aside>
+

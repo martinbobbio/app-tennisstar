@@ -1,0 +1,136 @@
+<ng-container *ngIf="type == 1">
+  <div class="relative">
+    <div class="blur">
+      <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false>
+        <ng-container *ngFor="let marker of places">
+            <agm-marker [latitude]="marker.geometry.location.lat" [longitude]="marker.geometry.location.lng" iconUrl="assets/images/marker1.png"></agm-marker>
+        </ng-container>
+        <ng-container *ngIf="isLocation">
+            <agm-marker [latitude]="lat" [longitude]="lng" iconUrl="assets/images/marker-person.png" title="Tu posición"></agm-marker>
+        </ng-container>
+      </agm-map>
+    </div>
+    <div *ngIf="completeCharge" id="display-map" class="row absolute" style="top:0%;left:7%;width:90%">
+        <div class="col m6 no-margin-mobile" style="margin-top:50px;">
+          <h2 *ngIf="isNewUser == null" class="orange-text text-darken-1 fs-38">Impulsado por los mejores jugadores del mundo.</h2>
+          <h2 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-38">Solo faltan dos pasos. {{fullCount}}/2</h2>
+          <h2 *ngIf="fullCount == 2" class="orange-text text-darken-1 fs-38">Felicidades eres un Tennisstar</h2>
+            <div class="row">
+              <div class="col m6">
+                <h3 *ngIf="isNewUser == null" class="orange-text text-darken-1 fs-25">Conviertete en uno de ellos.</h3>
+                <h3 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-25">Ingresa tus datos y estilo de juego.</h3>
+                <h3 *ngIf="fullCount == 2" class="orange-text text-darken-1 fs-25">Comienza a interactuar en nuestra red.</h3>
+              </div>
+            </div>
+          <span id="buttons-map">
+          <a [navPush]="login" ion-button color="primary" *ngIf="isNewUser == null">Ingresa a TennisStar</a>
+          <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2 && fullPlayer != true">Completa tus datos</a>
+          <a ion-button color="primary" *ngIf="fullCount == 2">Crear partido</a>
+          <br><br>
+          <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2  && fullGame != true">Completa tu perfil</a>
+          <a ion-button color="primary" *ngIf="fullCount == 2">Crear torneo</a>
+          </span>
+        </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="type == 2 || type == 3">
+  
+  <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false>
+    <ng-container *ngFor="let marker of places">
+        <agm-marker (markerClick)="selectMarker(marker)"  [latitude]="marker.geometry.location.lat" [longitude]="marker.geometry.location.lng" iconUrl="assets/images/marker1.png" [title]="marker.name"></agm-marker>
+    </ng-container>
+    <ng-container *ngIf="isLocation">
+        <agm-marker [latitude]="lat" [longitude]="lng" iconUrl="assets/images/marker-person.png" title="Tu posición"></agm-marker>
+    </ng-container>
+    <ng-container *ngFor="let match of matchs">
+      <agm-marker (markerClick)="seeMatch(match)"  [latitude]="match.lon" [longitude]="match.lat" iconUrl="assets/images/marker1.png" [title]="match.title"></agm-marker>
+    </ng-container>
+    <ng-container *ngFor="let tournament of tournaments">
+      <agm-marker (markerClick)="seeTournament(tournament)"  [latitude]="tournament.lon" [longitude]="tournament.lat" iconUrl="assets/images/marker1.png" [title]="tournament.title"></agm-marker>
+    </ng-container>
+  </agm-map>
+
+  <ng-container *ngIf="!viewMatch && !viewTournament">
+    <div id="newMatchForm" class="container d-none">
+      <h3 class="orange-text">Partido en {{namePlaceMatch}}</h3>
+      <div class="row">
+          <form (ngSubmit)="newMatch()" [formGroup]="formMatch" novalidate="novalidate" class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input formControlName="title" id="title" type="text" class="validate">
+                <label for="title">Nombre del partido</label>
+              </div>
+              <div class="input-field col s12">
+                <select formControlName="type" name='type' id='type' class='type'>
+                  <option [ngValue]="undefined" disabled selected>Tipo de juego</option>
+                  <option [ngValue]="1">Singles</option>
+                  <option [ngValue]="2">Dobles</option>
+                </select>
+                <label>Tipo de juego</label>
+              </div>
+              <div class="col s6">
+                  <small class="grey-text">Fecha</small>
+                  <input formControlName="date" type="text" class="datepicker">
+              </div>
+              <div class="col s6">
+                  <small class="grey-text">Hora</small>
+                  <input formControlName="hour" type="text" class="timepicker">
+              </div>
+              <div class="col s12">
+                <p>
+                  <input type="checkbox" formControlName="isPrivate" id="isPrivate" checked="isPrivate" />
+                  <label for="isPrivate">Privado</label>
+                </p>
+              </div>
+              <div class="col s12">
+                <br>
+                <button type='submit' id="btn_submit" name='btn_submit' class='col s12 btn btn-large waves-effect orange'>Crear partido</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="!viewMatch && !viewTournament">
+    <div id="newTournamentForm" class="container d-none">
+      <h3 class="orange-text">Torneo en {{namePlaceTournament}}</h3>
+      <div class="row">
+          <form (ngSubmit)="newTournament()" [formGroup]="formTournament" novalidate="novalidate" class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input formControlName="title" id="title" type="text" class="validate">
+                <label for="title">Nombre del torneo</label>
+              </div>
+              <div class="input-field col s12">
+                <select formControlName="count" name='count' id='count' class='count'>
+                  <option [ngValue]="undefined" disabled selected>Límite de jugadores</option>
+                  <option id="4" [ngValue]="4">4 Jugadores</option>
+                  <option id="8" [ngValue]="8">8 Jugadores</option>
+                  <option id ="16" [ngValue]="16">16 Jugadores</option>
+                </select>
+                <label>Límite de jugadores</label>
+              </div>
+              <div class="col s6">
+                  <small class="grey-text">Fecha</small>
+                  <input formControlName="date" type="text" class="datepicker2">
+              </div>
+              <div class="col s6">
+                  <small class="grey-text">Hora</small>
+                  <input formControlName="hour" type="text" class="timepicker2">
+              </div>
+              <div class="col s12">
+                <br>
+                <button type='submit' id="btn_submit" name='btn_submit' class='col s12 btn btn-large waves-effect orange'>Crear torneo</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </ng-container>
+
+    
+</ng-container>

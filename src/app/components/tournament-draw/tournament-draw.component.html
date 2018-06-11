@@ -1,0 +1,1374 @@
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TORNEO CHICO ++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<ng-container *ngIf="count == 4">
+
+  <div class="container" style="height: 600px;width: 500px;">
+
+    <ng-container *ngIf="isAdmin && status != 1">
+      <p class="black-text left-align bold">* Para subir resultado, toca en los partidos 
+          <i class="large material-icons" style="font-size: 13px;">add_circle_outline</i>.</p>
+    </ng-container>
+
+    <h3 class="green-text bold">Cuadro principal</h3>
+
+    <div class="round r-of-4">
+    <div class="bracket-game">
+      <div class="player top" [ngClass]="{'win': matchs.semifinal[0].win, 'loss': !matchs.semifinal[0].win, 'default': matchs.semifinal[0].win == null}">
+        <ng-container *ngIf="matchs.semifinal[0]">
+          {{matchs.semifinal[0].username}}
+          <span (click)="uploadScore(matchs.semifinal[0],matchs.semifinal[1],1,'Semifinal')"
+          *ngIf="matchs.semifinal[0].id_user && matchs.semifinal[1].id_user && isAdmin && matchs.semifinal[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1a}} {{matchs.semifinal[0].set2a}} {{matchs.semifinal[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1a}} {{matchs.semifinal[1].set2a}} {{matchs.semifinal[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[0].id_user || matchs.semifinal[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[1].win, 'loss': !matchs.semifinal[1].win, 'default': matchs.semifinal[1].win == null}">
+        <ng-container *ngIf="matchs.semifinal[1]">
+          {{matchs.semifinal[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1b}} {{matchs.semifinal[0].set2b}} {{matchs.semifinal[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1b}} {{matchs.semifinal[1].set2b}} {{matchs.semifinal[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[1].id_user || matchs.semifinal[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="bracket-game cont">
+      <div class="player top" [ngClass]="{'win': matchs.semifinal[2].win, 'loss': !matchs.semifinal[2].win, 'default': matchs.semifinal[2].win == null}">
+        <ng-container *ngIf="matchs.semifinal[2]">
+          {{matchs.semifinal[2].username}}
+          <span (click)="uploadScore(matchs.semifinal[2],matchs.semifinal[3],2,'Semifinal')"
+          *ngIf="matchs.semifinal[2].id_user && matchs.semifinal[3].id_user && isAdmin && matchs.semifinal[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[2].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1a}} {{matchs.semifinal[2].set2a}} {{matchs.semifinal[2].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1a}} {{matchs.semifinal[3].set2a}} {{matchs.semifinal[3].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[2].id_user || matchs.semifinal[2].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[3].win, 'loss': !matchs.semifinal[3].win, 'default': matchs.semifinal[3].win == null}">
+        <ng-container *ngIf="matchs.semifinal[3]">
+          {{matchs.semifinal[3].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[3].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1b}} {{matchs.semifinal[2].set2b}} {{matchs.semifinal[2].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1b}} {{matchs.semifinal[3].set2b}} {{matchs.semifinal[3].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[3].id_user || matchs.semifinal[3].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="connectors r-of-2">
+    <div class="top-line"></div>
+    <div class="clear"></div>
+    <div class="bottom-line"></div>
+    <div class="clear"></div>
+    <div class="vert-line"></div>
+    <div class="clear"></div>
+    <div class="next-line"></div>
+    <div class="clear"></div>
+  </div>
+  <div class="round r-of-2">
+    <div class="bracket-game">
+      <div class="player top" [ngClass]="{'win': matchs.final[0].win, 'loss': !matchs.final[0].win, 'default': matchs.final[0].win == null}">
+        <ng-container *ngIf="matchs.final[0]">
+          {{matchs.final[0].username}}
+          <span (click)="uploadScore(matchs.final[0],matchs.final[1],1,'Final')"
+          *ngIf="matchs.final[0].id_user && matchs.final[1].id_user && isAdmin && matchs.final[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons" style="font-size:29px;background: #EEE">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[0].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1a}} {{matchs.final[0].set2a}} {{matchs.final[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1a}} {{matchs.final[1].set2a}} {{matchs.final[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[0].id_user || matchs.final[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.final[1].win, 'loss': !matchs.final[1].win, 'default': matchs.final[1].win == null}">
+        <ng-container *ngIf="matchs.final[1]">
+          {{matchs.final[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[1].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1b}} {{matchs.final[0].set2b}} {{matchs.final[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1b}} {{matchs.final[1].set2b}} {{matchs.final[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[1].id_user || matchs.final[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</ng-container>
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TORNEO MEDIANO ++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<ng-container *ngIf="count == 8">
+
+  <div class="container" style="height: 600px;width: 1000px;">
+
+    <ng-container *ngIf="isAdmin && status != 1">
+      <p class="black-text left-align bold">* Para subir resultado, toca en los partidos 
+          <i class="large material-icons" style="font-size: 13px;">add_circle_outline</i>.</p>
+    </ng-container>
+
+    <h3 class="green-text bold">Cuadro principal</h3>
+
+    <div class="round r-of-4">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[0].win, 'loss': !matchs.cuartos[0].win, 'default': matchs.cuartos[0].win == null}">
+          <ng-container *ngIf="matchs.cuartos[0]">
+            {{matchs.cuartos[0].username}}
+            <span (click)="uploadScore(matchs.cuartos[0],matchs.cuartos[1],1,'Cuartos de final')"
+            *ngIf="matchs.cuartos[0].id_user && matchs.cuartos[1].id_user && isAdmin && matchs.cuartos[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[0].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[0].win != null">
+              <ng-container *ngIf="matchs.cuartos[0].win">
+                  {{matchs.cuartos[0].set1a}} {{matchs.cuartos[0].set2a}} {{matchs.cuartos[0].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[1].win">
+                  {{matchs.cuartos[1].set1a}} {{matchs.cuartos[1].set2a}} {{matchs.cuartos[1].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[0].id_user || matchs.cuartos[0].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[1].win, 'loss': !matchs.cuartos[1].win, 'default': matchs.cuartos[1].win == null}">
+        <ng-container *ngIf="matchs.cuartos[1]">
+          {{matchs.cuartos[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[0].win != null">
+            <ng-container *ngIf="matchs.cuartos[0].win">
+                {{matchs.cuartos[0].set1b}} {{matchs.cuartos[0].set2b}} {{matchs.cuartos[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[1].win">
+                {{matchs.cuartos[1].set1b}} {{matchs.cuartos[1].set2b}} {{matchs.cuartos[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[1].id_user || matchs.cuartos[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game cont">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[2].win, 'loss': !matchs.cuartos[2].win, 'default': matchs.cuartos[2].win == null}">
+          <ng-container *ngIf="matchs.cuartos[2]">
+            {{matchs.cuartos[2].username}}
+            <span (click)="uploadScore(matchs.cuartos[2],matchs.cuartos[3],2,'Cuartos de final')"
+            *ngIf="matchs.cuartos[2].id_user && matchs.cuartos[3].id_user && isAdmin && matchs.cuartos[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[2].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[2].win != null">
+              <ng-container *ngIf="matchs.cuartos[2].win">
+                  {{matchs.cuartos[2].set1a}} {{matchs.cuartos[2].set2a}} {{matchs.cuartos[2].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[3].win">
+                  {{matchs.cuartos[3].set1a}} {{matchs.cuartos[3].set2a}} {{matchs.cuartos[3].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[2].id_user || matchs.cuartos[2].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[3].win, 'loss': !matchs.cuartos[3].win, 'default': matchs.cuartos[3].win == null}">
+          <ng-container *ngIf="matchs.cuartos[3]">
+            {{matchs.cuartos[3].username}}
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[3].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[2].win != null">
+              <ng-container *ngIf="matchs.cuartos[2].win">
+                  {{matchs.cuartos[2].set1b}} {{matchs.cuartos[2].set2b}} {{matchs.cuartos[2].set3b}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[3].win">
+                  {{matchs.cuartos[3].set1b}} {{matchs.cuartos[3].set2b}} {{matchs.cuartos[3].set3b}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[3].id_user || matchs.cuartos[3].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[4].win, 'loss': !matchs.cuartos[4].win, 'default': matchs.cuartos[4].win == null}">
+          <ng-container *ngIf="matchs.cuartos[4]">
+            {{matchs.cuartos[4].username}}
+            <span (click)="uploadScore(matchs.cuartos[4],matchs.cuartos[5],3,'Cuartos de final')"
+            *ngIf="matchs.cuartos[4].id_user && matchs.cuartos[4].id_user && isAdmin && matchs.cuartos[4].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[4].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[4].win != null">
+              <ng-container *ngIf="matchs.cuartos[4].win">
+                  {{matchs.cuartos[4].set1a}} {{matchs.cuartos[4].set2a}} {{matchs.cuartos[4].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[5].win">
+                  {{matchs.cuartos[5].set1a}} {{matchs.cuartos[5].set2a}} {{matchs.cuartos[5].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[4].id_user || matchs.cuartos[4].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[5].win, 'loss': !matchs.cuartos[5].win, 'default': matchs.cuartos[5].win == null}">
+        <ng-container *ngIf="matchs.cuartos[5]">
+          {{matchs.cuartos[5].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[5].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[4].win != null">
+            <ng-container *ngIf="matchs.cuartos[4].win">
+                {{matchs.cuartos[4].set1b}} {{matchs.cuartos[4].set2b}} {{matchs.cuartos[4].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[5].win">
+                {{matchs.cuartos[5].set1b}} {{matchs.cuartos[5].set2b}} {{matchs.cuartos[5].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[5].id_user || matchs.cuartos[5].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game cont">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[6].win, 'loss': !matchs.cuartos[6].win, 'default': matchs.cuartos[6].win == null}">
+          <ng-container *ngIf="matchs.cuartos[6]">
+            {{matchs.cuartos[6].username}}
+            <span (click)="uploadScore(matchs.cuartos[6],matchs.cuartos[7],4,'Cuartos de final')"
+            *ngIf="matchs.cuartos[6].id_user && matchs.cuartos[6].id_user && isAdmin && matchs.cuartos[6].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[6].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[6].win != null">
+              <ng-container *ngIf="matchs.cuartos[6].win">
+                  {{matchs.cuartos[6].set1a}} {{matchs.cuartos[6].set2a}} {{matchs.cuartos[6].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[7].win">
+                  {{matchs.cuartos[7].set1a}} {{matchs.cuartos[7].set2a}} {{matchs.cuartos[7].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[6].id_user || matchs.cuartos[6].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[7].win, 'loss': !matchs.cuartos[7].win, 'default': matchs.cuartos[7].win == null}">
+        <ng-container *ngIf="matchs.cuartos[7]">
+          {{matchs.cuartos[7].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[7].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[6].win != null">
+            <ng-container *ngIf="matchs.cuartos[6].win">
+                {{matchs.cuartos[6].set1b}} {{matchs.cuartos[6].set2b}} {{matchs.cuartos[6].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[7].win">
+                {{matchs.cuartos[7].set1b}} {{matchs.cuartos[7].set2b}} {{matchs.cuartos[7].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[7].id_user || matchs.cuartos[7].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="connectors r-of-2">
+      <div class="top-line"></div>
+      <div class="clear"></div>
+      <div class="bottom-line"></div>
+      <div class="clear"></div>
+      <div class="vert-line"></div>
+      <div class="clear"></div>
+      <div class="next-line"></div>
+      <div class="clear"></div>
+      <div class="top-line2"></div>
+      <div class="clear"></div>
+      <div class="bottom-line2"></div>
+      <div class="clear"></div>
+      <div class="vert-line2"></div>
+      <div class="clear"></div>
+      <div class="next-line2"></div>
+      <div class="clear"></div>
+      <div class="top-line3"></div>
+      <div class="clear"></div>
+      <div class="bottom-line3"></div>
+      <div class="clear"></div>
+      <div class="vert-line3"></div>
+      <div class="clear"></div>
+      <div class="next-line3"></div>
+      <div class="clear"></div>
+    </div>
+    <div class="round r-of-2">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.semifinal[0].win, 'loss': !matchs.semifinal[0].win, 'default': matchs.semifinal[0].win == null}">
+        <ng-container *ngIf="matchs.semifinal[0]">
+          {{matchs.semifinal[0].username}}
+          <span (click)="uploadScore(matchs.semifinal[0],matchs.semifinal[1],1,'Semifinal')"
+          *ngIf="matchs.semifinal[0].id_user && matchs.semifinal[1].id_user && isAdmin && matchs.semifinal[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1a}} {{matchs.semifinal[0].set2a}} {{matchs.semifinal[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1a}} {{matchs.semifinal[1].set2a}} {{matchs.semifinal[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[0].id_user || matchs.semifinal[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[1].win, 'loss': !matchs.semifinal[1].win, 'default': matchs.semifinal[1].win == null}">
+        <ng-container *ngIf="matchs.semifinal[1]">
+          {{matchs.semifinal[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1b}} {{matchs.semifinal[0].set2b}} {{matchs.semifinal[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1b}} {{matchs.semifinal[1].set2b}} {{matchs.semifinal[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[1].id_user || matchs.semifinal[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div style="margin-top:65px;" class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.semifinal[2].win, 'loss': !matchs.semifinal[2].win, 'default': matchs.semifinal[2].win == null}">
+        <ng-container *ngIf="matchs.semifinal[2]">
+          {{matchs.semifinal[2].username}}
+          <span (click)="uploadScore(matchs.semifinal[2],matchs.semifinal[3],2,'Semifinal')"
+          *ngIf="matchs.semifinal[2].id_user && matchs.semifinal[3].id_user && isAdmin && matchs.semifinal[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[2].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1a}} {{matchs.semifinal[2].set2a}} {{matchs.semifinal[2].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1a}} {{matchs.semifinal[3].set2a}} {{matchs.semifinal[3].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[2].id_user || matchs.semifinal[2].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[3].win, 'loss': !matchs.semifinal[3].win, 'default': matchs.semifinal[3].win == null}">
+        <ng-container *ngIf="matchs.semifinal[3]">
+          {{matchs.semifinal[3].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[3].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1b}} {{matchs.semifinal[2].set2b}} {{matchs.semifinal[2].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1b}} {{matchs.semifinal[3].set2b}} {{matchs.semifinal[3].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[3].id_user || matchs.semifinal[3].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="round r-of-2" style="margin-top:84px;margin-left:133px;">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.final[0].win, 'loss': !matchs.final[0].win, 'default': matchs.final[0].win == null}">
+        <ng-container *ngIf="matchs.final[0]">
+          {{matchs.final[0].username}}
+          <span (click)="uploadScore(matchs.final[0],matchs.final[1],1,'Final')"
+          *ngIf="matchs.final[0].id_user && matchs.final[1].id_user && isAdmin && matchs.final[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons" style="font-size:29px;background: #EEE">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[0].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1a}} {{matchs.final[0].set2a}} {{matchs.final[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1a}} {{matchs.final[1].set2a}} {{matchs.final[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[0].id_user || matchs.final[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.final[1].win, 'loss': !matchs.final[1].win, 'default': matchs.final[1].win == null}">
+        <ng-container *ngIf="matchs.final[1]">
+          {{matchs.final[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[1].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1b}} {{matchs.final[0].set2b}} {{matchs.final[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1b}} {{matchs.final[1].set2b}} {{matchs.final[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[1].id_user || matchs.final[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+</ng-container>
+
+
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TORNEO GRANDE ++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<ng-container *ngIf="count == 16">
+
+  <div class="container" style="height: 600px;width: 1000px;">
+
+    <ng-container *ngIf="isAdmin && status != 1">
+      <p class="black-text left-align bold">* Para subir resultado, toca en los partidos 
+          <i class="large material-icons" style="font-size: 13px;">add_circle_outline</i>.</p>
+    </ng-container>
+
+    <h3 class="green-text bold">Cuadro principal</h3>
+
+    <div class="round r-of-4">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[0].win, 'loss': !matchs.octavos[0].win, 'default': matchs.octavos[0].win == null}">
+          <ng-container *ngIf="matchs.octavos[0]">
+            {{matchs.octavos[0].username}}
+            <span (click)="uploadScore(matchs.octavos[0],matchs.octavos[1],1,'Octavos de final')"
+            *ngIf="matchs.octavos[0].id_user && matchs.octavos[1].id_user && isAdmin && matchs.octavos[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[0].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[0].win != null">
+              <ng-container *ngIf="matchs.octavos[0].win">
+                  {{matchs.octavos[0].set1a}} {{matchs.octavos[0].set2a}} {{matchs.octavos[0].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[1].win">
+                  {{matchs.octavos[1].set1a}} {{matchs.octavos[1].set2a}} {{matchs.octavos[1].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[0].id_user || matchs.octavos[0].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[1].win, 'loss': !matchs.octavos[1].win, 'default': matchs.octavos[1].win == null}">
+        <ng-container *ngIf="matchs.octavos[1]">
+          {{matchs.octavos[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[0].win != null">
+            <ng-container *ngIf="matchs.octavos[0].win">
+                {{matchs.octavos[0].set1b}} {{matchs.octavos[0].set2b}} {{matchs.octavos[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[1].win">
+                {{matchs.octavos[1].set1b}} {{matchs.octavos[1].set2b}} {{matchs.octavos[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[1].id_user || matchs.octavos[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[2].win, 'loss': !matchs.octavos[2].win, 'default': matchs.octavos[2].win == null}">
+          <ng-container *ngIf="matchs.octavos[2]">
+            {{matchs.octavos[2].username}}
+            <span (click)="uploadScore(matchs.octavos[2],matchs.octavos[3],2,'Octavos de final')"
+            *ngIf="matchs.octavos[2].id_user && matchs.octavos[3].id_user && isAdmin && matchs.octavos[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[2].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[2].win != null">
+              <ng-container *ngIf="matchs.octavos[2].win">
+                  {{matchs.octavos[2].set1a}} {{matchs.octavos[2].set2a}} {{matchs.octavos[2].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[3].win">
+                  {{matchs.octavos[3].set1a}} {{matchs.octavos[3].set2a}} {{matchs.octavos[3].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[2].id_user || matchs.octavos[2].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[3].win, 'loss': !matchs.octavos[3].win, 'default': matchs.octavos[3].win == null}">
+          <ng-container *ngIf="matchs.octavos[3]">
+            {{matchs.octavos[3].username}}
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[3].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[2].win != null">
+              <ng-container *ngIf="matchs.octavos[2].win">
+                  {{matchs.octavos[2].set1b}} {{matchs.octavos[2].set2b}} {{matchs.octavos[2].set3b}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[3].win">
+                  {{matchs.octavos[3].set1b}} {{matchs.octavos[3].set2b}} {{matchs.octavos[3].set3b}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[3].id_user || matchs.octavos[3].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[4].win, 'loss': !matchs.octavos[4].win, 'default': matchs.octavos[4].win == null}">
+          <ng-container *ngIf="matchs.octavos[4]">
+            {{matchs.octavos[4].username}}
+            <span (click)="uploadScore(matchs.octavos[4],matchs.octavos[5],3,'Octavos de final')"
+            *ngIf="matchs.octavos[4].id_user && matchs.octavos[4].id_user && isAdmin && matchs.octavos[4].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[4].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[4].win != null">
+              <ng-container *ngIf="matchs.octavos[4].win">
+                  {{matchs.octavos[4].set1a}} {{matchs.octavos[4].set2a}} {{matchs.octavos[4].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[5].win">
+                  {{matchs.octavos[5].set1a}} {{matchs.octavos[5].set2a}} {{matchs.octavos[5].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[4].id_user || matchs.octavos[4].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[5].win, 'loss': !matchs.octavos[5].win, 'default': matchs.octavos[5].win == null}">
+        <ng-container *ngIf="matchs.octavos[5]">
+          {{matchs.octavos[5].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[5].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[4].win != null">
+            <ng-container *ngIf="matchs.octavos[4].win">
+                {{matchs.octavos[4].set1b}} {{matchs.octavos[4].set2b}} {{matchs.octavos[4].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[5].win">
+                {{matchs.octavos[5].set1b}} {{matchs.octavos[5].set2b}} {{matchs.octavos[5].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[5].id_user || matchs.octavos[5].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[6].win, 'loss': !matchs.octavos[6].win, 'default': matchs.octavos[6].win == null}">
+          <ng-container *ngIf="matchs.octavos[6]">
+            {{matchs.octavos[6].username}}
+            <span (click)="uploadScore(matchs.octavos[6],matchs.octavos[7],4,'Octavos de final')"
+            *ngIf="matchs.octavos[6].id_user && matchs.octavos[6].id_user && isAdmin && matchs.octavos[6].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[6].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[6].win != null">
+              <ng-container *ngIf="matchs.octavos[6].win">
+                  {{matchs.octavos[6].set1a}} {{matchs.octavos[6].set2a}} {{matchs.octavos[6].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[7].win">
+                  {{matchs.octavos[7].set1a}} {{matchs.octavos[7].set2a}} {{matchs.octavos[7].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[6].id_user || matchs.octavos[6].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[7].win, 'loss': !matchs.octavos[7].win, 'default': matchs.octavos[7].win == null}">
+        <ng-container *ngIf="matchs.octavos[7]">
+          {{matchs.octavos[7].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[7].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[6].win != null">
+            <ng-container *ngIf="matchs.octavos[6].win">
+                {{matchs.octavos[6].set1b}} {{matchs.octavos[6].set2b}} {{matchs.octavos[6].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[7].win">
+                {{matchs.octavos[7].set1b}} {{matchs.octavos[7].set2b}} {{matchs.octavos[7].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[7].id_user || matchs.octavos[7].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[8].win, 'loss': !matchs.octavos[8].win, 'default': matchs.octavos[8].win == null}">
+          <ng-container *ngIf="matchs.octavos[8]">
+            {{matchs.octavos[8].username}}
+            <span (click)="uploadScore(matchs.octavos[8],matchs.octavos[9],5,'Octavos de final')"
+            *ngIf="matchs.octavos[8].id_user && matchs.octavos[9].id_user && isAdmin && matchs.octavos[8].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[8].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[8].win != null">
+              <ng-container *ngIf="matchs.octavos[8].win">
+                  {{matchs.octavos[8].set1a}} {{matchs.octavos[8].set2a}} {{matchs.octavos[8].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[9].win">
+                  {{matchs.octavos[9].set1a}} {{matchs.octavos[9].set2a}} {{matchs.octavos[9].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[8].id_user || matchs.octavos[8].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[9].win, 'loss': !matchs.octavos[9].win, 'default': matchs.octavos[9].win == null}">
+        <ng-container *ngIf="matchs.octavos[9]">
+          {{matchs.octavos[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[9].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[8].win != null">
+            <ng-container *ngIf="matchs.octavos[8].win">
+                {{matchs.octavos[8].set1b}} {{matchs.octavos[8].set2b}} {{matchs.octavos[8].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[9].win">
+                {{matchs.octavos[9].set1b}} {{matchs.octavos[9].set2b}} {{matchs.octavos[9].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[9].id_user || matchs.octavos[9].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[10].win, 'loss': !matchs.octavos[10].win, 'default': matchs.octavos[10].win == null}">
+          <ng-container *ngIf="matchs.octavos[10]">
+            {{matchs.octavos[10].username}}
+            <span (click)="uploadScore(matchs.octavos[10],matchs.octavos[11],6,'Octavos de final')"
+            *ngIf="matchs.octavos[10].id_user && matchs.octavos[11].id_user && isAdmin && matchs.octavos[10].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[10].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[10].win != null">
+              <ng-container *ngIf="matchs.octavos[10].win">
+                  {{matchs.octavos[10].set1a}} {{matchs.octavos[10].set2a}} {{matchs.octavos[10].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[11].win">
+                  {{matchs.octavos[11].set1a}} {{matchs.octavos[11].set2a}} {{matchs.octavos[11].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[10].id_user || matchs.octavos[10].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[11].win, 'loss': !matchs.octavos[11].win, 'default': matchs.octavos[11].win == null}">
+          <ng-container *ngIf="matchs.octavos[11]">
+            {{matchs.octavos[11].username}}
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[11].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[10].win != null">
+              <ng-container *ngIf="matchs.octavos[10].win">
+                  {{matchs.octavos[10].set1b}} {{matchs.octavos[10].set2b}} {{matchs.octavos[10].set3b}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[11].win">
+                  {{matchs.octavos[11].set1b}} {{matchs.octavos[11].set2b}} {{matchs.octavos[11].set3b}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[11].id_user || matchs.octavos[11].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[12].win, 'loss': !matchs.octavos[12].win, 'default': matchs.octavos[12].win == null}">
+          <ng-container *ngIf="matchs.octavos[12]">
+            {{matchs.octavos[12].username}}
+            <span (click)="uploadScore(matchs.octavos[12],matchs.octavos[13],7,'Octavos de final')"
+            *ngIf="matchs.octavos[12].id_user && matchs.octavos[12].id_user && isAdmin && matchs.octavos[12].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[12].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[12].win != null">
+              <ng-container *ngIf="matchs.octavos[12].win">
+                  {{matchs.octavos[12].set1a}} {{matchs.octavos[12].set2a}} {{matchs.octavos[12].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[13].win">
+                  {{matchs.octavos[13].set1a}} {{matchs.octavos[13].set2a}} {{matchs.octavos[13].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[12].id_user || matchs.octavos[12].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[13].win, 'loss': !matchs.octavos[13].win, 'default': matchs.octavos[13].win == null}">
+        <ng-container *ngIf="matchs.octavos[13]">
+          {{matchs.octavos[13].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[13].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[12].win != null">
+            <ng-container *ngIf="matchs.octavos[12].win">
+                {{matchs.octavos[12].set1b}} {{matchs.octavos[12].set2b}} {{matchs.octavos[12].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[13].win">
+                {{matchs.octavos[13].set1b}} {{matchs.octavos[13].set2b}} {{matchs.octavos[13].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[13].id_user || matchs.octavos[13].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.octavos[14].win, 'loss': !matchs.octavos[14].win, 'default': matchs.octavos[14].win == null}">
+          <ng-container *ngIf="matchs.octavos[14]">
+            {{matchs.octavos[14].username}}
+            <span (click)="uploadScore(matchs.octavos[14],matchs.octavos[15],8,'Octavos de final')"
+            *ngIf="matchs.octavos[14].id_user && matchs.octavos[14].id_user && isAdmin && matchs.octavos[14].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[14].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.octavos[14].win != null">
+              <ng-container *ngIf="matchs.octavos[14].win">
+                  {{matchs.octavos[14].set1a}} {{matchs.octavos[14].set2a}} {{matchs.octavos[14].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.octavos[14].win">
+                  {{matchs.octavos[15].set1a}} {{matchs.octavos[15].set2a}} {{matchs.octavos[15].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.octavos[14].id_user || matchs.octavos[14].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.octavos[15].win, 'loss': !matchs.octavos[15].win, 'default': matchs.octavos[15].win == null}">
+        <ng-container *ngIf="matchs.octavos[15]">
+          {{matchs.octavos[15].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.octavos[15].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.octavos[14].win != null">
+            <ng-container *ngIf="matchs.octavos[14].win">
+                {{matchs.octavos[14].set1b}} {{matchs.octavos[14].set2b}} {{matchs.octavos[14].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.octavos[15].win">
+                {{matchs.octavos[15].set1b}} {{matchs.octavos[15].set2b}} {{matchs.octavos[15].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.octavos[15].id_user || matchs.octavos[15].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="connectors r-of-2">
+      <div class="top-line"></div>
+      <div class="clear"></div>
+      <div class="bottom-line"></div>
+      <div class="clear"></div>
+      <div class="vert-line"></div>
+      <div class="clear"></div>
+      <div class="next-line"></div>
+      <div class="clear"></div>
+      <div class="top-line2"></div>
+      <div class="clear"></div>
+      <div class="bottom-line2"></div>
+      <div class="clear"></div>
+      <div class="vert-line2"></div>
+      <div class="clear"></div>
+      <div class="next-line2"></div>
+      <div class="clear"></div>
+      <div class="top-line3"></div>
+      <div class="clear"></div>
+      <div class="bottom-line3"></div>
+      <div class="clear"></div>
+      <div class="vert-line3"></div>
+      <div class="clear"></div>
+      <div class="next-line3"></div>
+      <div class="clear"></div>
+      <div class="top-line4"></div>
+      <div class="clear"></div>
+      <div class="bottom-line4"></div>
+      <div class="clear"></div>
+      <div class="vert-line4"></div>
+      <div class="clear"></div>
+      <div class="next-line4"></div>
+      <div class="clear"></div>
+      <div class="top-line5"></div>
+      <div class="clear"></div>
+      <div class="bottom-line5"></div>
+      <div class="clear"></div>
+      <div class="vert-line5"></div>
+      <div class="clear"></div>
+      <div class="next-line5"></div>
+      <div class="clear"></div>
+      <div class="top-line6"></div>
+      <div class="clear"></div>
+      <div class="bottom-line6"></div>
+      <div class="clear"></div>
+      <div class="vert-line6"></div>
+      <div class="clear"></div>
+      <div class="next-line6"></div>
+      <div class="clear"></div>
+      <div class="top-line7"></div>
+      <div class="clear"></div>
+      <div class="bottom-line7"></div>
+      <div class="clear"></div>
+      <div class="vert-line7"></div>
+      <div class="clear"></div>
+      <div class="next-line7"></div>
+      <div class="clear"></div>
+    </div>
+    <div class="round r-of-2">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[0].win, 'loss': !matchs.cuartos[0].win, 'default': matchs.cuartos[0].win == null}">
+          <ng-container *ngIf="matchs.cuartos[0]">
+            {{matchs.cuartos[0].username}}
+            <span (click)="uploadScore(matchs.cuartos[0],matchs.cuartos[1],1,'Cuartos de final')"
+            *ngIf="matchs.cuartos[0].id_user && matchs.cuartos[1].id_user && isAdmin && matchs.cuartos[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[0].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[0].win != null">
+              <ng-container *ngIf="matchs.cuartos[0].win">
+                  {{matchs.cuartos[0].set1a}} {{matchs.cuartos[0].set2a}} {{matchs.cuartos[0].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[1].win">
+                  {{matchs.cuartos[1].set1a}} {{matchs.cuartos[1].set2a}} {{matchs.cuartos[1].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[0].id_user || matchs.cuartos[0].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[1].win, 'loss': !matchs.cuartos[1].win, 'default': matchs.cuartos[1].win == null}">
+        <ng-container *ngIf="matchs.cuartos[1]">
+          {{matchs.cuartos[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[0].win != null">
+            <ng-container *ngIf="matchs.cuartos[0].win">
+                {{matchs.cuartos[0].set1b}} {{matchs.cuartos[0].set2b}} {{matchs.cuartos[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[1].win">
+                {{matchs.cuartos[1].set1b}} {{matchs.cuartos[1].set2b}} {{matchs.cuartos[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[1].id_user || matchs.cuartos[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div style="margin-top:65px;" class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[2].win, 'loss': !matchs.cuartos[2].win, 'default': matchs.cuartos[2].win == null}">
+          <ng-container *ngIf="matchs.cuartos[2]">
+            {{matchs.cuartos[2].username}}
+            <span (click)="uploadScore(matchs.cuartos[2],matchs.cuartos[3],2,'Cuartos de final')"
+            *ngIf="matchs.cuartos[2].id_user && matchs.cuartos[3].id_user && isAdmin && matchs.cuartos[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[2].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[2].win != null">
+              <ng-container *ngIf="matchs.cuartos[2].win">
+                  {{matchs.cuartos[2].set1a}} {{matchs.cuartos[2].set2a}} {{matchs.cuartos[2].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[3].win">
+                  {{matchs.cuartos[3].set1a}} {{matchs.cuartos[3].set2a}} {{matchs.cuartos[3].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[2].id_user || matchs.cuartos[2].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[3].win, 'loss': !matchs.cuartos[3].win, 'default': matchs.cuartos[3].win == null}">
+          <ng-container *ngIf="matchs.cuartos[3]">
+            {{matchs.cuartos[3].username}}
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[3].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[2].win != null">
+              <ng-container *ngIf="matchs.cuartos[2].win">
+                  {{matchs.cuartos[2].set1b}} {{matchs.cuartos[2].set2b}} {{matchs.cuartos[2].set3b}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[3].win">
+                  {{matchs.cuartos[3].set1b}} {{matchs.cuartos[3].set2b}} {{matchs.cuartos[3].set3b}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[3].id_user || matchs.cuartos[3].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:75px;" class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[4].win, 'loss': !matchs.cuartos[4].win, 'default': matchs.cuartos[4].win == null}">
+          <ng-container *ngIf="matchs.cuartos[4]">
+            {{matchs.cuartos[4].username}}
+            <span (click)="uploadScore(matchs.cuartos[4],matchs.cuartos[5],3,'Cuartos de final')"
+            *ngIf="matchs.cuartos[4].id_user && matchs.cuartos[4].id_user && isAdmin && matchs.cuartos[4].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[4].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[4].win != null">
+              <ng-container *ngIf="matchs.cuartos[4].win">
+                  {{matchs.cuartos[4].set1a}} {{matchs.cuartos[4].set2a}} {{matchs.cuartos[4].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[5].win">
+                  {{matchs.cuartos[5].set1a}} {{matchs.cuartos[5].set2a}} {{matchs.cuartos[5].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[4].id_user || matchs.cuartos[4].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[5].win, 'loss': !matchs.cuartos[5].win, 'default': matchs.cuartos[5].win == null}">
+        <ng-container *ngIf="matchs.cuartos[5]">
+          {{matchs.cuartos[5].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[5].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[4].win != null">
+            <ng-container *ngIf="matchs.cuartos[4].win">
+                {{matchs.cuartos[4].set1b}} {{matchs.cuartos[4].set2b}} {{matchs.cuartos[4].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[5].win">
+                {{matchs.cuartos[5].set1b}} {{matchs.cuartos[5].set2b}} {{matchs.cuartos[5].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[5].id_user || matchs.cuartos[5].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+      <div style="margin-top:65px;" class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.cuartos[6].win, 'loss': !matchs.cuartos[6].win, 'default': matchs.cuartos[6].win == null}">
+          <ng-container *ngIf="matchs.cuartos[6]">
+            {{matchs.cuartos[6].username}}
+            <span (click)="uploadScore(matchs.cuartos[6],matchs.cuartos[7],4,'Cuartos de final')"
+            *ngIf="matchs.cuartos[6].id_user && matchs.cuartos[6].id_user && isAdmin && matchs.cuartos[6].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+              <i class="large material-icons icon-add">add_circle_outline</i>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[6].id_user">
+            -
+          </ng-container>
+          <div class="score">
+            <ng-container *ngIf="matchs.cuartos[6].win != null">
+              <ng-container *ngIf="matchs.cuartos[6].win">
+                  {{matchs.cuartos[6].set1a}} {{matchs.cuartos[6].set2a}} {{matchs.cuartos[6].set3a}}
+              </ng-container>
+              <ng-container *ngIf="matchs.cuartos[7].win">
+                  {{matchs.cuartos[7].set1a}} {{matchs.cuartos[7].set2a}} {{matchs.cuartos[7].set3a}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!matchs.cuartos[6].id_user || matchs.cuartos[6].win == null">
+              -
+            </ng-container>
+          </div>
+        </div>
+        <div class="player bot" [ngClass]="{'win': matchs.cuartos[7].win, 'loss': !matchs.cuartos[7].win, 'default': matchs.cuartos[7].win == null}">
+        <ng-container *ngIf="matchs.cuartos[7]">
+          {{matchs.cuartos[7].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.cuartos[7].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.cuartos[6].win != null">
+            <ng-container *ngIf="matchs.cuartos[6].win">
+                {{matchs.cuartos[6].set1b}} {{matchs.cuartos[6].set2b}} {{matchs.cuartos[6].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.cuartos[7].win">
+                {{matchs.cuartos[7].set1b}} {{matchs.cuartos[7].set2b}} {{matchs.cuartos[7].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.cuartos[7].id_user || matchs.cuartos[7].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="round r-of-2" style="margin-top:84px;margin-left:133px;">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.semifinal[0].win, 'loss': !matchs.semifinal[0].win, 'default': matchs.semifinal[0].win == null}">
+        <ng-container *ngIf="matchs.semifinal[0]">
+          {{matchs.semifinal[0].username}}
+          <span (click)="uploadScore(matchs.semifinal[0],matchs.semifinal[1],1,'Semifinal')"
+          *ngIf="matchs.semifinal[0].id_user && matchs.semifinal[1].id_user && isAdmin && matchs.semifinal[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1a}} {{matchs.semifinal[0].set2a}} {{matchs.semifinal[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1a}} {{matchs.semifinal[1].set2a}} {{matchs.semifinal[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[0].id_user || matchs.semifinal[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[1].win, 'loss': !matchs.semifinal[1].win, 'default': matchs.semifinal[1].win == null}">
+        <ng-container *ngIf="matchs.semifinal[1]">
+          {{matchs.semifinal[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[0].win != null">
+            <ng-container *ngIf="matchs.semifinal[0].win">
+                {{matchs.semifinal[0].set1b}} {{matchs.semifinal[0].set2b}} {{matchs.semifinal[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[1].win">
+                {{matchs.semifinal[1].set1b}} {{matchs.semifinal[1].set2b}} {{matchs.semifinal[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[1].id_user || matchs.semifinal[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="round r-of-2" style="margin-top:322px;margin-left:-125px;">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.semifinal[2].win, 'loss': !matchs.semifinal[2].win, 'default': matchs.semifinal[2].win == null}">
+        <ng-container *ngIf="matchs.semifinal[2]">
+          {{matchs.semifinal[2].username}}
+          <span (click)="uploadScore(matchs.semifinal[2],matchs.semifinal[3],2,'Semifinal')"
+          *ngIf="matchs.semifinal[2].id_user && matchs.semifinal[3].id_user && isAdmin && matchs.semifinal[2].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons icon-add">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[2].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1a}} {{matchs.semifinal[2].set2a}} {{matchs.semifinal[2].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1a}} {{matchs.semifinal[3].set2a}} {{matchs.semifinal[3].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[2].id_user || matchs.semifinal[2].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.semifinal[3].win, 'loss': !matchs.semifinal[3].win, 'default': matchs.semifinal[3].win == null}">
+        <ng-container *ngIf="matchs.semifinal[3]">
+          {{matchs.semifinal[3].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.semifinal[3].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.semifinal[2].win != null">
+            <ng-container *ngIf="matchs.semifinal[2].win">
+                {{matchs.semifinal[2].set1b}} {{matchs.semifinal[2].set2b}} {{matchs.semifinal[2].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.semifinal[3].win">
+                {{matchs.semifinal[3].set1b}} {{matchs.semifinal[3].set2b}} {{matchs.semifinal[3].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.semifinal[3].id_user || matchs.semifinal[3].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="round r-of-2" style="margin-top:211px;margin-left:132px;">
+      <div class="bracket-game">
+        <div class="player top" [ngClass]="{'win': matchs.final[0].win, 'loss': !matchs.final[0].win, 'default': matchs.final[0].win == null}">
+        <ng-container *ngIf="matchs.final[0]">
+          {{matchs.final[0].username}}
+          <span (click)="uploadScore(matchs.final[0],matchs.final[1],1,'Final')"
+          *ngIf="matchs.final[0].id_user && matchs.final[1].id_user && isAdmin && matchs.final[0].win == null" class="pointer" style="right:25%;top:25%;position:absolute;z-index:999">
+            <i class="large material-icons" style="font-size:29px;background: #EEE">add_circle_outline</i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[0].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[0].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1a}} {{matchs.final[0].set2a}} {{matchs.final[0].set3a}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1a}} {{matchs.final[1].set2a}} {{matchs.final[1].set3a}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[0].id_user || matchs.final[0].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      <div class="player bot" [ngClass]="{'win': matchs.final[1].win, 'loss': !matchs.final[1].win, 'default': matchs.final[1].win == null}">
+        <ng-container *ngIf="matchs.final[1]">
+          {{matchs.final[1].username}}
+        </ng-container>
+        <ng-container *ngIf="!matchs.final[1].id_user">
+          -
+        </ng-container>
+        <div class="score">
+          <ng-container *ngIf="matchs.final[1].win != null">
+            <ng-container *ngIf="matchs.final[0].win">
+                {{matchs.final[0].set1b}} {{matchs.final[0].set2b}} {{matchs.final[0].set3b}}
+            </ng-container>
+            <ng-container *ngIf="matchs.final[1].win">
+                {{matchs.final[1].set1b}} {{matchs.final[1].set2b}} {{matchs.final[1].set3b}}
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!matchs.final[1].id_user || matchs.final[1].win == null">
+            -
+          </ng-container>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+</ng-container>
+

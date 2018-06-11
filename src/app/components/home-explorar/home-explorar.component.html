@@ -1,0 +1,163 @@
+<div *ngIf="fullPlayer && fullGame" class="container">
+  <div class="row">
+    <div class="col m12">
+      <h3 class="green-text">Explorar</h3>
+    </div>
+    <div class="col m6 s12">
+        <p class="orange-text bold">Usuarios</p>
+        <ul *ngFor="let user of users" id="explore-user-{{user.id}}" class="collection">
+            <li class="collection-item avatar">
+                <img src="{{path}}{{user.path}}" alt="" class="circle pointer">
+                <span class="title bold pointer">{{user.firstname}} {{user.lastname}}</span>
+                <p>{{user.gameStyle}} <br>
+                    {{user.gameLevel}}
+                </p>
+                <a (click)="sendRequest(user.id)" class="secondary-content pointer"><i class="material-icons orange-text">person_add</i></a>
+            </li>
+        </ul>
+        <div class="center-align">
+            <a href="buscarUsuarios" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Buscar usuarios</a>
+        </div>
+    </div>
+
+    <div class="col m6 s12">
+        <p class="orange-text bold">Partidos</p>
+        <ul *ngFor="let match of matchs" id="explore-match-{{match.id}}" class="collection">
+            <li class="collection-item avatar" style="position:relative">
+                <div style="position:absolute;left:4%;top:7%">
+                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                        <img src="{{path}}{{match.player1APath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
+                        <br><br>
+                        <img src="{{path}}{{match.player2APath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
+                    </ng-container>
+                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                        <img style="margin-top:15px;" src="{{path}}{{match.player1APath}}" alt="" class="circle pointer">
+                    </ng-container>
+                </div>
+                <div style="position:absolute;left:80%;top:7%">
+                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                        <imgsrc="{{path}}{{match.player1BPath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
+                        <br><br>
+                        <img src="{{path}}{{match.player2BPath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
+                    </ng-container>
+                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                        <img style="margin-top:15px;" src="{{path}}{{match.player2APath}}" alt="" class="circle pointer">
+                    </ng-container>
+                </div>
+                <div style="position:absolute;left:25%;top:12%;text-align:center;width:50%;">
+                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                        <p class="fs-14">
+                            <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> y 
+                            <b><a class="pointer black-text">{{match.player1BUsername}}</a></b>
+                        </p>
+                        <p class="fs-14">vs</p>
+                        <p class="fs-14">
+                            <b><a class="pointer black-text">{{match.player2AUsername}}</a></b> y 
+                            <b><a class="pointer black-text">{{match.player2BUsername}}</a></b>
+                        </p>
+                    </ng-container>
+                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                        <p class="fs-11a">
+                            <b><a class="pointer black-text">{{match.player1AUsername}}</a></b>
+                        </p>
+                        <p class="fs-11a">vs</p>
+                        <p class="fs-11a">
+                            <b><a class="pointer black-text">{{match.player2AUsername}}</a></b>
+                        </p>
+                    </ng-container>
+                </div>
+                <ng-container *ngIf="match.player1AId == null && match.player1BId == null && match.player2AId == null && match.player2BId == null">
+                    <p><b>{{match.type}}</b> - <b>
+                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                    </b></p>
+                    <p>Sin jugadores.</p>
+                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
+                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
+                        <loader></loader>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="match.type == 'Singles' && match.player2AId == null">
+                    <i class="material-icons orange circle">search</i>
+                    <p>Singles - <b>
+                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                    </b></p>
+                    <p>
+                        <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> 
+                        está esperando un jugador<br>{{match.date}}
+                    </p>
+                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
+                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
+                        <loader></loader>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="match.type == 'Dobles' && (match.player1BId == null || match.player2BId == null || match.player1AId == null)">
+                    <i class="material-icons orange circle">search</i>
+                    <p>Dobles - <b>
+                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                    </b></p>
+                    <b><a class="pointer black-text fs-11" >{{match.player1AUsername}}</a> </b>
+                    <b><a class="pointer black-text fs-11">{{match.player2AUsername}}</a> </b>
+                    <b *ngIf="match.player1BId != null"> <a class="pointer black-text fs-11">{{match.player1BUsername}}</a></b>
+                    <b *ngIf="match.player2BId != null"> <a class="pointer black-text fs-11">{{match.player2BUsername}}</a></b>
+                    <span class="fs-11">buscando..<br>{{match.date}}</span>
+                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
+                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
+                        <loader></loader>
+                    </div>
+                </ng-container>
+            </li>
+        </ul>
+        <div class="center-align">
+            <a href="explorar/verPartidos" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más partidos</a>
+        </div>
+    </div>
+
+    </div>
+    <div class="row">
+
+    <div class="col m6 s12">
+        <p class="orange-text bold">Clubes</p>
+        <ul *ngFor="let club of clubs" class="collection">
+            <li class="collection-item avatar">
+                <img [src]="getPhotoClub(club.photo)" alt="" class="circle pointer">
+                <span class="title bold pointer">{{club.title}}</span>
+                <p [innerHTML]="getRatingClub(club.rating)"></p>
+                    {{club.cantidad}} usuarios
+            </li>
+        </ul>
+        <div class="center-align">
+            <a href="explorar/favoriteClub" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Asignar mi club</a>
+        </div>
+    </div>
+
+
+    <div class="col m6 s12">
+        <p class="orange-text bold">Torneos</p>
+        <ul *ngFor="let tournament of tournaments" class="collection">
+            <li class="collection-item avatar">
+                <i class="material-icons orange circle">event</i>
+                <div class="row" style="margin-bottom:0px;">
+                    <div class="col m6 s12">
+                        <p class="bold">{{tournament.title}}</p>
+                    </div>
+                    <div class="col m6 s12 right-align">
+                        <a *ngIf="!mobile" href="tournament/{{tournament.id}}" class="btn-flat green-text bold">Ver info</a>
+                        <a *ngIf="mobile" href="tournament/{{tournament.id}}" class="btn-flat green-text bold">Ver</a>
+                    </div>
+                    <div class="col s12">
+                        <p>{{tournament.countStatus}}/{{tournament.countTotal}} jugadores</p>
+                        <p>{{tournament.date}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="center-align">
+            <a href="explorar/verTorneos" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más torneos</a>
+        </div>
+    </div>
+
+  </div>
+</div>

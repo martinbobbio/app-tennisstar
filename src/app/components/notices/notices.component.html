@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col m12">
+      <h3 class="green-text" style="margin-left:17px;">Noticias</h3>
+      <br>
+      <ng-container *ngFor="let notice of notices;let i = index">
+        <notice title="{{notice.title}}" id={{i}} videoLink="{{notice.videoLink}}" description="{{notice.description}}" imgsrc="{{notice.imgsrc}}" createdAt="{{notice.created.date | date:'shortDate'}}"></notice>
+      </ng-container>
+    </div>
+
+  </div>
+</div>

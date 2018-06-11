@@ -1,0 +1,110 @@
+/*Fontsize*/
+.fs-38{
+    font-size: 38px;
+}
+.fs-25{
+    font-size: 25px;
+}
+.fs-11{
+    font-size:11px;
+}
+.fs-19{
+    font-size: 19px;
+}
+.fs-14{
+    font-size:14px;
+}
+.fs-22{
+    font-size:22px;
+}
+
+/*Cursor*/
+.pointer{
+    cursor: pointer;
+}
+
+/*Bold*/
+.bold{
+    font-weight: bold;
+}
+
+/*Display*/
+.d-none{
+    display: none;
+}
+
+
+/*Positions*/
+.relative{
+    position: relative;
+}
+.absolute{
+    position: absolute;
+}
+.fixed{
+    position:fixed;
+}
+
+/*Scrollbar*/
+body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+body::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+body::-webkit-scrollbar-thumb
+{
+	background-color: #4caf50;
+}
+
+/*Datepickers*/
+.picker__date-display {
+    background-color: #4caf50 !important;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background-color: #ff9800 !important;
+}
+.picker__today, .picker__close, {
+    color: #ff9800 !important;
+}
+.ui-datepicker {
+    background: #4caf50 !important;
+    color: #ff9800 !important;
+  }
+
+
+/*Mediaqueries*/
+
+/*Mobile*/
+@media only screen and (max-width: 576px) {
+
+    agm-map {
+        height: 350px !important;
+    }
+    .no-margin-mobile{
+        margin-top:0px !important;
+    }
+    .fs-38{
+        font-size:30px !important;
+    }
+    .fs-25{
+        font-size:20px !important;
+    }
+    .mobile-ajust{
+        padding-left:35px !important;
+    }
+}
+
+
+/*Materialize*/
+.orange-text {
+    color: #ff9800 !important;
+}
+.green-text {
+    color: #4CAF50 !important;
+}
+
