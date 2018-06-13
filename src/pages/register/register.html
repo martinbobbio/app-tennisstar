@@ -1,0 +1,50 @@
+<ion-content>
+  <main>
+      <div class="section"></div>
+      <div class="section"></div>
+
+      <div class="container center-align">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 8px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form (ngSubmit)="registerForm()" [formGroup]="form" novalidate="novalidate" method="post" class="col s12">
+            <div class='row'>
+              <div class='col s12'>
+                <h5 class="white-text center-align">Registrate</h5>
+                <a [navPush]="home">
+                  <img src="assets/images/logo.png" class="responsive-img">
+                </a>
+              </div>
+            </div>
+
+            <div class='row'>
+              <br>
+              <ion-list>
+                <ion-item>
+                  <ion-input placeholder="Usuario" formControlName="username" class='validate' type='text' name='username' id='username'></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="Email" formControlName="email" class='validate' type='email' name='email' id='email'></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="Contraseña" formControlName="password" class='validate' type='password' name='password' id='password'></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input placeholder="Repite Contraseña" formControlName="password2" class='validate' type='password' name='password2' id='password2'></ion-input>
+                </ion-item>
+              </ion-list>
+            </div>
+
+              <div class='row'>
+                <button ion-button block color="primary" type='submit' name='btn_login' class='col s12 btn btn-large waves-effect green'>Registrarse</button>
+              </div>
+              <br>
+              <a [navPush]="login" ion-button block color="secondary" class="white-text"><p>Volver</p></a>
+              <br>
+          </form>
+        </div>
+      </div>
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+</ion-content>

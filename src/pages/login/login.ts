@@ -5,6 +5,7 @@ import { LoginService } from '../../app/services/login.service';
 import { AuthService } from '../../app/services/auth.service';
 import { UserService } from '../../app/services/user.service';
 import { HomePage } from '../home/home';
+import { RegisterPage } from '../register/register';
 
 import * as $ from 'jquery';
 import * as swal from 'sweetalert2';
@@ -15,7 +16,8 @@ import * as swal from 'sweetalert2';
 })
 export class LoginPage {
 
-  home = HomePage
+  home = HomePage;
+  register = RegisterPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loginService:LoginService, public authService:AuthService,public userService:UserService) {
 
@@ -30,6 +32,8 @@ export class LoginPage {
   form:FormGroup;
 
   ngOnInit() {
+    $(".tabbar").fadeOut(0);
+    
 
   }
 
@@ -38,12 +42,14 @@ export class LoginPage {
     let textHtml = `
     <br>
     <div class="row">
+      <p>Olvidaste tu contraseña?</p>
+      <br>
       <div class='input-field col s12 m12'>
-        <input type='text' id="email"/>
-        <label>Email</label>
+        <input placeholder="Email" type='text' id="email"/>
       </div>
       <div class="col s12">
-        <a id="changePassword" class="waves-effect waves-light btn green">Solicitar nueva contraseña</a>
+        <br>
+        <a id="changePassword" class="button-modal-grey">Solicitar nueva contraseña</a>
         <div id="loader" class="row" style="display:none;">
           <div class="progress">
             <div class="col s12">
@@ -56,11 +62,10 @@ export class LoginPage {
     `;
 
     swal({
-      title: "Olvido su contraseña?", 
       html: textHtml,
       showConfirmButton: false,
       showCloseButton: true
-    });
+    }).catch(swal.noop);
 
     $("#changePassword").on('click', () => {
 
@@ -123,7 +128,7 @@ export class LoginPage {
           }else{
             this.loginService.setSession(this.form.get("username").value,response.data[0].id);
             localStorage.setItem("isAdmin",response.data[0].isAdmin);
-            this.navCtrl.push(this.home);
+            window.location.reload();
           }
         } ,
         (error) =>{

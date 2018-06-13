@@ -107,4 +107,41 @@ body::-webkit-scrollbar-thumb
 .green-text {
     color: #4CAF50 !important;
 }
+.white-text{
+    color: #F5F5F5 !important;
+}
+.black-text{
+    color:#000000 !important;
+}
+.yellow-text{
+    color: #ffeb3b !important;
+}
+.circle {
+    border-radius: 50%;
+}
+.orange {
+    background-color: #ff9800 !important;
+}
+
+.button-modal {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button-modal-grey {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 

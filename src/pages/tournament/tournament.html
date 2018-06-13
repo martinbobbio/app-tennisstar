@@ -1,0 +1,66 @@
+<ion-content>
+
+  <headeraux nameHeader="Torneo"></headeraux>
+  <br><br>
+
+  <div *ngIf="tournament" id="profile-page-header" class="orange">
+      <div class="card-content-size">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <p *ngIf="isCreator && tournament.status != 1" class="bold">*Eres el administrador del torneo (debes subir los resultados de los partidos)</p>
+              <h1 *ngIf="!mobile" class="bold white-text">{{tournament.title}}</h1>
+              <h3 *ngIf="mobile" class="bold white-text">{{tournament.title}}</h3>
+              <a *ngIf="!tournament.inscription && !tournament.inscriptionOld" (click)="inscription()" ion-button color="dark" id="inscription-button" class="waves-effect waves-light green btn">Inscribirse</a>
+              <p *ngIf="!tournament.inscription && tournament.inscriptionOld" class="waves-effect waves-light green btn disabled">Ya paso la fecha de inscripción</p>
+              <p *ngIf="tournament.inscription && tournament.status == 0" class="waves-effect waves-light green btn disabled">Estás participando..</p>
+              <a *ngIf="tournament.inscription && !tournament.tournamentStart" ion-button color="dark" (click)="leave()" id="leave-button" class="waves-effect waves-light red btn">Abandonar torneo</a>
+              <p *ngIf="tournament.inscription && tournament.status == 1" class="waves-effect waves-light green btn disabled">
+                <ng-container *ngIf="tournament.matchs.final[0].win">
+                    Campeón {{tournament.matchs.final[0].username}}
+                </ng-container>
+                <ng-container *ngIf="tournament.matchs.final[1].win">
+                    Campeón {{tournament.matchs.final[1].username}}
+                </ng-container>
+              </p>
+              <div id="inscription-loader" class="progress" style="display:none;">
+                <div class="indeterminate"></div>
+              </div>
+              <div id="leave-loader" class="progress" style="display:none;">
+                <div class="indeterminate"></div>
+              </div>
+              <br><br>
+              <a href="club/{{tournament.googlePlaceId}}" ion-button color="dark" class="waves-effect waves-light black btn">Ver club</a>
+            </div>
+          </div>
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <p style="height: 20px;" class="bold white-text">
+                    {{statusText}}
+              </p>
+              <p class="medium-small bold black-text">Estado</p>  
+            </ion-col>
+            <ion-col col-6>
+              <p style="height: 20px;" class="card-title bold white-text">{{tournament.date}}</p>
+              <p class="medium-small bold black-text">Fecha</p> 
+            </ion-col>
+            <ion-col col-6>
+              <p style="height: 20px;" class="card-title bold white-text">{{tournament.countStatus}}/{{tournament.countTotal}}</p>
+              <p class="medium-small bold black-text">Limite de jugadores</p>
+            </ion-col>
+            <ion-col col-6>
+              <p style="height: 20px;" class="card-title bold white-text">{{tournament.clubTitle}}</p>
+              <p class="medium-small bold black-text">Club</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  </div>
+
+  <!-- <div *ngIf="tournament" style="overflow-x: scroll">
+    <tournament-draw count={{tournament.countTotal}} [isAdmin]="isCreator" [matchs]="tournament.matchs" idTournament="{{tournament_id}}" status="{{tournament.status}}"></tournament-draw>
+  </div> -->
+
+</ion-content>

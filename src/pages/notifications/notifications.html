@@ -1,0 +1,92 @@
+<ion-content>
+
+  <headeraux nameHeader="Notificaciones"></headeraux>
+  <br><br><br>
+
+  <div *ngIf="notifications" class="container">
+
+    <div class="row">
+        <div class="col s9 m9">
+          <h3 class="orange-text">Notificaciones</h3>
+        </div>
+        <div *ngIf="!mobile" class="col s3 m3">
+          <button (click)="viewInfo()" style="margin-top:30px;" class="waves-effect waves-light btn gradient-45deg-orange-teal z-depth-4 mr-1">Referencias <i class="material-icons right">info</i></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s4 m3">
+          <div class="input-field">
+              <select class="action">
+                <option value="" disabled selected>Acción</option>
+                <option value="add">Agregar</option>
+                <option value="edit">Editar</option>
+                <option value="delete">Borrar</option>
+              </select>
+          </div>
+        </div>
+        <div class="col s4 m3">
+            <div class="input-field">
+              <select class="entity">
+                <option value="" disabled selected>Entidades</option>
+                <option value="user">Usuarios</option>
+                <option value="match">Partidos</option>
+                <option value="tournament">Torneos</option>
+                <option value="requestFriend">Solicitud de amistad</option>
+                <option value="requestMatch">Solicitud de partido</option>
+                <option value="clubFavorite">Club Favorito</option>
+                <option value="notice">Noticias</option>
+              </select>
+            </div>
+        </div>
+        <div class="col s4 m3">
+            <div class="input-field">
+              <select class="environment">
+                <option value="" disabled selected>Entorno</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Backend">Backend</option>
+              </select>
+            </div>
+        </div>
+        <div class="col s4 m3" style="margin-top:20px;">
+            <button (click)="filter()" ion-button color="primary"  class="waves-effect waves-light btn gradient-45deg-orange-teal z-depth-4 mr-1">Filtrar <i class="material-icons right">search</i></button>
+        </div>
+        <br>
+        <div class="col s4 m3" style="margin-top:20px;">
+            <button *ngIf="mobile" ion-button color="primary" (click)="viewInfo()" class="waves-effect waves-light btn gradient-45deg-orange-teal z-depth-4 mr-1">Referencias <i class="material-icons right">info</i></button>
+        </div>
+    </div>
+
+    <div id="loader" class="row" style="display:none;">
+      <div class="progress">
+        <div class="col s12">
+          <div class="indeterminate"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="notifications" id="notifications">
+      
+        <ion-grid>
+          <ion-row>
+            <ng-container *ngFor="let n of notifications">
+              <ion-col col-6>
+                <div [ngClass]="{'gradient-edit': n.type == 'edit', 'gradient-add': n.type == 'add', 'gradient-delete': n.type == 'delete'}"
+                class="card gradient-shadow border-radius-3 white-text" style="padding:3px;text-align: center;">
+                  <div class="card-content center">
+                    <i class="material-icons background-round mt-5">{{n.entity}}</i>
+                    <h5 class="white-text lighten-4">{{n.environment}}</h5>
+                    <p class="white-text lighten-4">{{n.title}}</p>
+                    <p class="white-text bold lighten-4" style="margin-top:10px">{{n.date.date | date:'dd/MM/yyyy hh:ss'}}hs</p>
+        
+                  </div>
+                </div>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-grid>
+      
+    </div>
+  </div>
+
+</ion-content>

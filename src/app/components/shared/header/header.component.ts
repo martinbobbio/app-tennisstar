@@ -6,7 +6,6 @@ import { MatchService } from '../../../services/match.service';
 import { environment } from '../../../../environments/environment';
 import { RequestFriendService } from '../../../services/request-friend.service';
 import { RequestMatchService } from '../../../services/request-match.service';
-
 import { LoadingBarService } from '@ngx-loading-bar/core';
 
 import * as swal from 'sweetalert2';

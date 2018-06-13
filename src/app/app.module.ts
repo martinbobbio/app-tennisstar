@@ -32,6 +32,7 @@ import { CollapsibleModule } from 'angular2-collapsible';
 //Loader Bar
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MaterializeModule } from "angular2-materialize";
+import { LoadersCssModule } from 'angular2-loaders-css';
 
 
 //Pipes
@@ -43,6 +44,10 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
+import { StatsPage } from '../pages/stats/stats';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { TournamentPage } from '../pages/tournament/tournament';
 
 //Componentes
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -54,6 +59,7 @@ import { NoticeComponent } from './components/notice/notice.component';
 import { HomeExplorarComponent } from './components/home-explorar/home-explorar.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { TournamentDrawComponent } from './components/tournament-draw/tournament-draw.component';
+import { HeaderAuxComponent } from './components/header/header';
 
 @NgModule({
   declarations: [
@@ -64,6 +70,10 @@ import { TournamentDrawComponent } from './components/tournament-draw/tournament
     TabsPage,
     SafePipe,
     LoginPage,
+    RegisterPage,
+    StatsPage,
+    NotificationsPage,
+    TournamentPage,
     HeaderComponent,
     FooterComponent,
     MapComponent,
@@ -74,6 +84,7 @@ import { TournamentDrawComponent } from './components/tournament-draw/tournament
     SafePipe,
     LoaderComponent,
     TournamentDrawComponent,
+    HeaderAuxComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +101,7 @@ import { TournamentDrawComponent } from './components/tournament-draw/tournament
     FormsModule,
     ReactiveFormsModule,
     MaterializeModule,
+    LoadersCssModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -98,7 +110,11 @@ import { TournamentDrawComponent } from './components/tournament-draw/tournament
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage,
+    StatsPage,
+    NotificationsPage,
+    TournamentPage,
   ],
   providers: [
     StatusBar,

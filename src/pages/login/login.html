@@ -1,69 +1,49 @@
-<main>
-        <div class="section"></div>
-    
-        <h5 class="white-text bold center-align">Ingresa tus datos para jugar</h5>
-        <div class="section"></div>
-    
-        <div class="container center-align">
-          <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-    
-            <form (ngSubmit)="loginForm()" [formGroup]="form" novalidate="novalidate" method="post" class="col s12">
-              <div class='row'>
-                <div class='col s12'>
-                    <a [navPush]="home">
-                      <img src="assets/images/logo.png" class="responsive-img">
-                    </a>
-                </div>
+<ion-content>  
+  <main>
+      <div class="section"></div>
+      <div class="section"></div>
+
+      <div class="container center-align">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 2px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form (ngSubmit)="loginForm()" [formGroup]="form" novalidate="novalidate" method="post" class="col s12">
+            <div class='row'>
+              <div class='col s12'>
+                  <h5 class="white-text bold center-align">Ingresa tus datos para jugar</h5>
+                  <a [navPush]="home">
+                    <img src="assets/images/logo.png" class="responsive-img">
+                  </a>
+                  <br><br>
               </div>
-    
+            </div>
+
+            <ion-list>
+              <ion-item>
+                <ion-input placeholder="Usuario" formControlName="username" class='validate' type='text' name='username' id='username'></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input placeholder="Contraseña" formControlName="password" class='validate' type='password' name='password' id='password'></ion-input>
+              </ion-item>
+              <br>
+              <label>
+                <a class='pink-text pointer' (click)="newPass()"><b>Olvido su contraseña?</b></a>
+              </label>
+            </ion-list>
+              
+
               <div class='row'>
-                <div class='input-field col s12'>
-                  <input formControlName="username" class='validate' type='email' name='username' id='username' />
-                  <label for='username'>Ingresa tu nombre de usuario</label>
-                </div>
+                  <button ion-button block color="primary" style="margin-bottom:5px;" type='submit' name='btn_login'>Ingresar</button>
+                  <a [navPush]="register" ion-button block color="secondary" class="white-text"><p class="center-align white-text">Crear cuenta</p></a>
               </div>
-    
-              <div class='row'>
-                <div class='input-field col s12'>
-                  <input formControlName="password" class='validate' type='password' name='password' id='password' />
-                  <label for='password'>Ingresa tu contraseña</label>
-                </div>
-                <label style='float: right;'>
-                  <a class='pink-text pointer' (click)="newPass()"><b>Olvido su contraseña?</b></a>
-                </label>
+              <div class="row">
+                <br><br><br>
               </div>
-    
-                <div class='row'>
-                  <div class="col s12">
-                    <button style="margin-bottom:20px;" type='submit' name='btn_login' class='col s12 btn btn-large waves-effect green'>Ingresar</button>
-                    <p>
-                      <input type="checkbox" id="session" checked="checked"/>
-                      <label for="session">Mantener sesión</label>
-                    </p>
-                  </div>
-                  <div class="col s12">
-                    <br>
-                    <a class="green-text"><p class="center-align">Crear cuenta</p></a>
-                  </div>
-                  <!-- <label style='float: left;'>
-                    <br><br>
-                    <a style="margin-left:10px;" class='pink-text' href='#!'><b>Ingresa con:</b></a>
-                  </label> -->
-                </div>
-                <div class="row">
-                  <!-- <div class="col s6">
-                    <a (click)="login()" class='col s12 btn btn-large waves-effect indigo'>Facebook</a>
-                  </div>
-                  <div class="col s6">
-                    <a (click)="login()" class='col s12 btn btn-large waves-effect red'>Google</a>
-                  </div> -->
-                  <br><br><br>
-                </div>
-            </form>
-          </div>
+          </form>
         </div>
-        
-    
-      <div class="section"></div>
-      <div class="section"></div>
-    </main>
+      </div>
+      
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+</ion-content>

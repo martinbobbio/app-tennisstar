@@ -1,0 +1,65 @@
+<ng-container *ngIf="completeChargue">
+  <ion-header>
+    <ion-navbar color="primary">
+      <ion-title>{{nameHeader}}</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only>
+          <ion-icon *ngIf="pathImg" name="calendar" style="margin-right: 20px;"></ion-icon>
+        </button>
+        <button ion-button icon-only>
+          <ion-icon *ngIf="pathImg" name="person-add" style="margin-right: 20px;"></ion-icon>
+        </button>
+        <button #mycontent ion-button icon-only (click)="menuCtrl.toggle()">
+          <ion-icon *ngIf="pathImg" name="menu" style="margin-right: 10px;"></ion-icon>        
+        </button>
+        <button ion-button icon-only (click)="logout()">
+          <ion-icon *ngIf="!pathImg && isNewUser" name="exit" style="margin-right: 10px;"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+    
+  <ion-menu [content]="mycontent">
+
+    <ion-content>
+      <ion-row style="padding:15px 0;">
+        <ion-col col-1>
+        </ion-col>
+        <ion-col col-3>
+          <img src="{{path}}{{pathImg}}" class="circle" height="50" width="50">
+        </ion-col>
+        <ion-col col-8>
+          <p *ngIf="username != null && mobile" class="bold center-align" style="margin-bottom:20px;">
+            <a class="bold black-text" href="/profile">
+              {{username}}
+            </a> - <span *ngIf="isAdmin == 1" class="bold black-text">ADMIN</span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-item-group>
+        <ion-item-divider color="blue">Cuenta</ion-item-divider>
+        <ion-item>Ver perfil</ion-item>
+        <ion-item>Editar perfil</ion-item>
+        <ion-item (click)="changuePassword()">Cambiar contraseña</ion-item>
+        <ion-item (click)="viewFriends()">Lista de amigos</ion-item>
+        <ion-item (click)="logout()">Salir</ion-item>
+        <ion-item-divider color="red">Torneos</ion-item-divider>
+        <ion-item>Crear torneo</ion-item>
+        <ion-item>Ver torneos</ion-item>
+        <ion-item (click)="adminTournament()">Mis torneos</ion-item>
+        <ion-item-divider color="yellow">Partidos</ion-item-divider>
+        <ion-item>Crear partido</ion-item>
+        <ion-item>Ver partidos</ion-item>
+        <ion-item-divider color="green">Clubes</ion-item-divider>
+        <ion-item>Asignar club favorito</ion-item>
+        <ion-item-divider *ngIf="isAdmin == 1" color="dark">Administrador</ion-item-divider>
+        <ion-item (click)="navCtrl.push(stats)">Estadísticas</ion-item>
+        <ion-item (click)="navCtrl.push(notifications)">Notificaciones</ion-item>
+      </ion-item-group>
+    </ion-content>
+  </ion-menu>
+</ng-container>
+
+<ng-container *ngIf="!completeChargue">
+  <ngx-loading-bar [includeSpinner]="true" [includeBar]="false" color="#4caf50"></ngx-loading-bar>
+</ng-container>

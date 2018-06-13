@@ -1,161 +1,205 @@
-<div *ngIf="fullPlayer && fullGame" class="container">
+<div *ngIf="fullPlayer && fullGame" style="padding:10px">
   <div class="row">
-    <div class="col m12">
-      <h3 class="green-text">Explorar</h3>
-    </div>
-    <div class="col m6 s12">
+    <h3 class="green-text">Explorar</h3>
+    <br>
+    <div>
         <p class="orange-text bold">Usuarios</p>
-        <ul *ngFor="let user of users" id="explore-user-{{user.id}}" class="collection">
-            <li class="collection-item avatar">
-                <img src="{{path}}{{user.path}}" alt="" class="circle pointer">
-                <span class="title bold pointer">{{user.firstname}} {{user.lastname}}</span>
-                <p>{{user.gameStyle}} <br>
-                    {{user.gameLevel}}
-                </p>
-                <a (click)="sendRequest(user.id)" class="secondary-content pointer"><i class="material-icons orange-text">person_add</i></a>
-            </li>
+        <ul *ngFor="let user of users" id="explore-user-{{user.id}}" style="padding-left:0px !important;">
+            <ion-card>
+                <ion-card-header>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-3>
+                                <img src="{{path}}{{user.path}}" alt="" class="circle pointer">
+                            </ion-col>
+                            <ion-col col-1>
+                            </ion-col>
+                            <ion-col col-8>
+                                <br>
+                                <span class="title bold pointer">{{user.firstname}} {{user.lastname}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-header>
+                <ion-card-content>
+                    <p>{{user.gameStyle}} -
+                        {{user.gameLevel}}
+                    </p>
+                    <br>
+                    <a ion-button color="secondary" clear (click)="sendRequest(user.id)" class="secondary-content pointer">Agregar</a>
+                </ion-card-content>
+            </ion-card>
         </ul>
-        <div class="center-align">
-            <a href="buscarUsuarios" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Buscar usuarios</a>
+        <div style="text-align: center;">
+            <a href="buscarUsuarios" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Buscar usuarios</a>
         </div>
     </div>
 
-    <div class="col m6 s12">
+    <div>
         <p class="orange-text bold">Partidos</p>
-        <ul *ngFor="let match of matchs" id="explore-match-{{match.id}}" class="collection">
+        <ul *ngFor="let match of matchs" id="explore-match-{{match.id}}" style="padding-left:0px;">
             <li class="collection-item avatar" style="position:relative">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-9>
+                                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                                        <img src="{{path}}{{match.player1APath}}" alt="" class="circle pointer" style="height: 30px;width: 30px;float:left;">
+                                        <img src="{{path}}{{match.player2APath}}" alt="" class="circle pointer" style="margin-left:10px;height: 30px;width: 30px;float:left;">
+                                    </ng-container>
+                                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                                        <img style="margin-top:15px;height: 30px;width: 30px;float:left;" src="{{path}}{{match.player1APath}}" alt="" class="circle pointer">
+                                    </ng-container>
+                                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                                        <img src="{{path}}{{match.player1BPath}}" alt="" class="circle pointer" style="margin-left:10px;height: 30px;width: 30px;float:left;">
+                                        <img src="{{path}}{{match.player2BPath}}" alt="" class="circle pointer" style="margin-left:10px;height: 30px;width: 30px;float:left;">
+                                    </ng-container>
+                                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                                        <img style="margin-left:10px;margin-top:15px;height: 30px;width: 30px;float:left" src="{{path}}{{match.player2APath}}" alt="" class="circle pointer">
+                                    </ng-container>
+                                </ion-col>
+                                <ion-col col-3>
+                                    
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <br>
+                        <p class="black-text">{{match.title}}</p>
+                        <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
+                            <p class="fs-14">
+                                <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> / 
+                                <b><a class="pointer black-text">{{match.player1BUsername}}</a></b>
+                                vs
+                                <b><a class="pointer black-text">{{match.player2AUsername}}</a></b> / 
+                                <b><a class="pointer black-text">{{match.player2BUsername}}</a></b>
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
+                            <p class="fs-11a">
+                                <b><a class="pointer black-text">{{match.player1AUsername}}</a> vs <b><a class="pointer black-text">{{match.player2AUsername}}</a></b></b>
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="match.player1AId == null && match.player1BId == null && match.player2AId == null && match.player2BId == null">
+                            <p><b>{{match.type}}</b> - <b>
+                                <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                                <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                            </b></p>
+                            <p>Sin jugadores.</p>
+                            <a (click)="askMatch(match.id)" ion-button clear id="icon-add-{{match.id}}" class="orange-text secondary-content pointer">Unirse</a>
+                            <div id="loader-match-{{match.id}}" style="display:none">
+                                <loader></loader>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="match.type == 'Singles' && match.player2AId == null">
+                            <p>Singles - <b>
+                                <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                                <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                            </b></p>
+                            <p>
+                                <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> 
+                                está esperando un jugador<br>{{match.date}}
+                            </p>
+                            <a (click)="askMatch(match.id)" ion-button clear id="icon-add-{{match.id}}" class="orange-text secondary-content pointer">Unirse</a>
+                            <div id="loader-match-{{match.id}}" style="display:none">
+                                <loader></loader>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="match.type == 'Dobles' && (match.player1BId == null || match.player2BId == null || match.player1AId == null)">
+                            <p>Dobles - <b>
+                                <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
+                                <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
+                            </b></p>
+                            <b><a class="pointer black-text fs-11" >{{match.player1AUsername}}</a> </b>
+                            <b><a class="pointer black-text fs-11">{{match.player2AUsername}}</a> </b>
+                            <b *ngIf="match.player1BId != null"> <a class="pointer black-text fs-11">{{match.player1BUsername}}</a></b>
+                            <b *ngIf="match.player2BId != null"> <a class="pointer black-text fs-11">{{match.player2BUsername}}</a></b>
+                            <span class="fs-11">buscando..<br>{{match.date}}</span>
+                            <a (click)="askMatch(match.id)" ion-button clear id="icon-add-{{match.id}}" class="orange-text secondary-content pointer">Unirse</a>
+                            <div id="loader-match-{{match.id}}" style="display:none">
+                                <loader></loader>
+                            </div>
+                        </ng-container>
+                    </ion-card-content>
+                </ion-card>
                 <div style="position:absolute;left:4%;top:7%">
-                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
-                        <img src="{{path}}{{match.player1APath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
-                        <br><br>
-                        <img src="{{path}}{{match.player2APath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
-                    </ng-container>
-                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
-                        <img style="margin-top:15px;" src="{{path}}{{match.player1APath}}" alt="" class="circle pointer">
-                    </ng-container>
+                    
                 </div>
                 <div style="position:absolute;left:80%;top:7%">
-                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
-                        <imgsrc="{{path}}{{match.player1BPath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
-                        <br><br>
-                        <img src="{{path}}{{match.player2BPath}}" alt="" class="circle pointer" style="height: 30px;width: 30px">
-                    </ng-container>
-                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
-                        <img style="margin-top:15px;" src="{{path}}{{match.player2APath}}" alt="" class="circle pointer">
-                    </ng-container>
+                    
                 </div>
                 <div style="position:absolute;left:25%;top:12%;text-align:center;width:50%;">
-                    <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
-                        <p class="fs-14">
-                            <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> y 
-                            <b><a class="pointer black-text">{{match.player1BUsername}}</a></b>
-                        </p>
-                        <p class="fs-14">vs</p>
-                        <p class="fs-14">
-                            <b><a class="pointer black-text">{{match.player2AUsername}}</a></b> y 
-                            <b><a class="pointer black-text">{{match.player2BUsername}}</a></b>
-                        </p>
-                    </ng-container>
-                    <ng-container *ngIf="match.type == 'Singles' && match.player1AId != null && match.player2AId != null">
-                        <p class="fs-11a">
-                            <b><a class="pointer black-text">{{match.player1AUsername}}</a></b>
-                        </p>
-                        <p class="fs-11a">vs</p>
-                        <p class="fs-11a">
-                            <b><a class="pointer black-text">{{match.player2AUsername}}</a></b>
-                        </p>
-                    </ng-container>
+                    
                 </div>
-                <ng-container *ngIf="match.player1AId == null && match.player1BId == null && match.player2AId == null && match.player2BId == null">
-                    <p><b>{{match.type}}</b> - <b>
-                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
-                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
-                    </b></p>
-                    <p>Sin jugadores.</p>
-                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
-                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
-                        <loader></loader>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="match.type == 'Singles' && match.player2AId == null">
-                    <i class="material-icons orange circle">search</i>
-                    <p>Singles - <b>
-                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
-                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
-                    </b></p>
-                    <p>
-                        <b><a class="pointer black-text">{{match.player1AUsername}}</a></b> 
-                        está esperando un jugador<br>{{match.date}}
-                    </p>
-                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
-                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
-                        <loader></loader>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="match.type == 'Dobles' && (match.player1BId == null || match.player2BId == null || match.player1AId == null)">
-                    <i class="material-icons orange circle">search</i>
-                    <p>Dobles - <b>
-                        <span *ngIf="match.isPrivate != 1" class="green-text">Público</span>
-                        <span *ngIf="match.isPrivate == 1" class="red-text">Privado</span>
-                    </b></p>
-                    <b><a class="pointer black-text fs-11" >{{match.player1AUsername}}</a> </b>
-                    <b><a class="pointer black-text fs-11">{{match.player2AUsername}}</a> </b>
-                    <b *ngIf="match.player1BId != null"> <a class="pointer black-text fs-11">{{match.player1BUsername}}</a></b>
-                    <b *ngIf="match.player2BId != null"> <a class="pointer black-text fs-11">{{match.player2BUsername}}</a></b>
-                    <span class="fs-11">buscando..<br>{{match.date}}</span>
-                    <a (click)="askMatch(match.id)" id="icon-add-{{match.id}}" class="secondary-content pointer"><i class="material-icons orange-text">add</i></a>
-                    <div id="loader-match-{{match.id}}" style="position:absolute; top:10%; right: 5%;display:none">
-                        <loader></loader>
-                    </div>
-                </ng-container>
+                
             </li>
         </ul>
-        <div class="center-align">
-            <a href="explorar/verPartidos" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más partidos</a>
+        <div style="text-align: center">
+            <a href="explorar/verPartidos" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más partidos</a>
         </div>
     </div>
 
     </div>
-    <div class="row">
+    <div>
 
-    <div class="col m6 s12">
+    <div>
         <p class="orange-text bold">Clubes</p>
-        <ul *ngFor="let club of clubs" class="collection">
-            <li class="collection-item avatar">
-                <img [src]="getPhotoClub(club.photo)" alt="" class="circle pointer">
-                <span class="title bold pointer">{{club.title}}</span>
-                <p [innerHTML]="getRatingClub(club.rating)"></p>
+        <ul *ngFor="let club of clubs" style="padding-left:0px;">
+            <ion-card>
+                <ion-card-header>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-3>
+                                <img [src]="getPhotoClub(club.photo)" alt="" class="circle pointer">
+                            </ion-col>
+                            <ion-col col-1>
+                            </ion-col>
+                            <ion-col col-8>
+                                <span class="title bold pointer">{{club.title}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-header>
+                <ion-card-content>
+                    <p [innerHTML]="getRatingClub(club.rating)"></p>
                     {{club.cantidad}} usuarios
-            </li>
+                    <br>
+                </ion-card-content>
+            </ion-card>
         </ul>
-        <div class="center-align">
-            <a href="explorar/favoriteClub" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Asignar mi club</a>
+        <div style="text-align: center">
+            <a href="explorar/favoriteClub" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Asignar mi club</a>
         </div>
     </div>
 
 
-    <div class="col m6 s12">
+    <div>
         <p class="orange-text bold">Torneos</p>
-        <ul *ngFor="let tournament of tournaments" class="collection">
-            <li class="collection-item avatar">
-                <i class="material-icons orange circle">event</i>
-                <div class="row" style="margin-bottom:0px;">
-                    <div class="col m6 s12">
-                        <p class="bold">{{tournament.title}}</p>
-                    </div>
-                    <div class="col m6 s12 right-align">
-                        <a *ngIf="!mobile" href="tournament/{{tournament.id}}" class="btn-flat green-text bold">Ver info</a>
-                        <a *ngIf="mobile" href="tournament/{{tournament.id}}" class="btn-flat green-text bold">Ver</a>
-                    </div>
-                    <div class="col s12">
-                        <p>{{tournament.countStatus}}/{{tournament.countTotal}} jugadores</p>
-                        <p>{{tournament.date}}</p>
-                    </div>
-                </div>
-            </li>
+        <ul *ngFor="let tournament of tournaments" style="padding-left:0px;">
+            <ion-card>
+                <ion-card-header>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-8>
+                                <p class="bold">{{tournament.title}}</p>
+                            </ion-col>
+                            <ion-col col-4>
+                                <p>{{tournament.countStatus}}/{{tournament.countTotal}} jugadores</p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-header>
+                <ion-card-content>
+                    
+                    <p>{{tournament.date}}</p>
+                    <a ion-button clear color="secondary" href="tournament/{{tournament.id}}" class="btn-flat orange-text bold">Ver torneo</a>
+                </ion-card-content>
+            </ion-card>
         </ul>
-        <div class="center-align">
-            <a href="explorar/verTorneos" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más torneos</a>
+        <div style="text-align: center">
+            <a href="explorar/verTorneos" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más torneos</a>
         </div>
     </div>
 

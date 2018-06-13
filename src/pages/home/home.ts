@@ -31,6 +31,7 @@ export class HomePage {
 
     if(localStorage.getItem("id_user") == null){
       this.userAnon = true;
+      $(".tabbar").fadeOut(0);
     }
 
     this.userService.getProfileStatus(Number(localStorage.getItem("id_user"))).subscribe(
