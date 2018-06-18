@@ -8,7 +8,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../../../pages/home/home';
 import { LoginPage } from '../../../pages/login/login';
-
+import { ExplorarPage } from '../../../pages/explorar/explorar';
+import { TournamentPage } from '../../../pages/tournament/tournament';
 
 import * as swal from 'sweetalert2';
 
@@ -29,6 +30,8 @@ export class MapComponent implements OnInit {
   isNewUser;
 
   login = LoginPage;
+  explorar = ExplorarPage;
+  tournament = TournamentPage;
 
   mobile = false;
 
@@ -84,7 +87,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  ngOnInit() {console.log(this.login);
+  ngOnInit() {
 
     let this_aux = this;
     
@@ -143,73 +146,6 @@ export class MapComponent implements OnInit {
     }
 
     this.isNewUser = localStorage.getItem("new_user");
-    if(this.type != 1){
-
-      $(document).ready(function() {
-        $('select').material_select();
-        $('.datepicker').pickadate({
-          selectMonths: true, // Creates a dropdown to control month
-          selectYears: 15, // Creates a dropdown of 15 years to control year,
-          today: 'HOY',
-          clear: 'BORRAR',
-          close: 'LISTO',
-          format: 'yyyy-mm-dd',
-          labelMonthNext: 'Mes siguiente',
-          labelMonthPrev: 'Mes anterior',
-          labelMonthSelect: 'Selecciona un mes',
-          labelYearSelect: 'Selecciona un año',
-          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-          monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-          weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-  
-  // Materialize modified
-          weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
-          closeOnSelect: false // Close upon selecting a date,
-        });
-        $('.timepicker').pickatime({
-          default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-          fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-          twelvehour: false, // Use AM/PM or 24-hour format
-          donetext: 'LISTO', // text for done-button
-          cleartext: 'BORRAR', // text for clear-button
-          canceltext: 'CANCELAR', // Text for cancel-button
-          autoclose: false, // automatic close timepicker
-          ampmclickable: true, // make AM PM clickable
-          aftershow: function(){} //Function for after opening timepicker
-        });
-        $('.datepicker2').pickadate({
-          selectMonths: true, // Creates a dropdown to control month
-          selectYears: 15, // Creates a dropdown of 15 years to control year,
-          today: 'HOY',
-          clear: 'BORRAR',
-          close: 'LISTO',
-          format: 'yyyy-mm-dd',
-          labelMonthNext: 'Mes siguiente',
-          labelMonthPrev: 'Mes anterior',
-          labelMonthSelect: 'Selecciona un mes',
-          labelYearSelect: 'Selecciona un año',
-          monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-          monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-          weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-          weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
-          closeOnSelect: false // Close upon selecting a date,
-        });
-        $('.timepicker2').pickatime({
-          default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-          fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-          twelvehour: false, // Use AM/PM or 24-hour format
-          donetext: 'LISTO', // text for done-button
-          cleartext: 'BORRAR', // text for clear-button
-          canceltext: 'CANCELAR', // Text for cancel-button
-          autoclose: false, // automatic close timepicker
-          ampmclickable: true, // make AM PM clickable
-          aftershow: function(){} //Function for after opening timepicker
-        });
-      });
-
-      
-    }
 
   }
 
@@ -266,7 +202,7 @@ export class MapComponent implements OnInit {
             `
             if(buttonAdd && match_aux.player1AId != localStorage.getItem("id_user") && match_aux.player1BId != localStorage.getItem("id_user")
               && match_aux.player2BId != localStorage.getItem("id_user") && match_aux.player2AId != localStorage.getItem("id_user")){
-              textHtml += `<a id="${match_aux.id_m}" class="addMatch waves-effect waves-light btn green">Participar</a>`
+              textHtml += `<a id="${match_aux.id_m}" class="addMatch button-modal-grey waves-effect waves-light btn green">Participar</a>`
             }
             textHtml += `
           </div>
@@ -287,7 +223,7 @@ export class MapComponent implements OnInit {
             type: "success",
             confirmButtonText: "Volver", 
             confirmButtonColor: "#ff9800"
-         })
+         }).catch(swal.noop);
          setTimeout(function() {
           location.href = "/explorar/verPartidos";
          }, 2500);
@@ -303,7 +239,7 @@ export class MapComponent implements OnInit {
       html: textHtml,  
       showConfirmButton: false,
       showCloseButton: true
-    });
+    }).catch(swal.noop);
 
   }
 
@@ -319,21 +255,27 @@ export class MapComponent implements OnInit {
             <p class="fs-14">${tournament_aux.date}</p>
             <p class="orange-text">${tournament.countStatus}/${tournament.countTotal} Jugadores</p>
             <div class="center-align">
-            <a class="waves-effect waves-light btn white-text green ">Inscribirse</a>
+            <a class="waves-effect waves-light button-modal-grey btn white-text green viewTournament">Ver torneo</a>
             </div>
           </div>
         </div>
         <hr>
         `;
+        $(document).on('click', ".viewTournament",()=> {
+          swal.close();
+          this.navCtrl.push(this.tournament,{id: tournament_aux.id});
+        });
       }
     }
+
+    
 
     swal({
       title: "Torneos", 
       html: textHtml,  
       showConfirmButton: false,
       showCloseButton: true
-    });
+    }).catch(swal.noop);
 
   }
 
@@ -416,12 +358,12 @@ export class MapComponent implements OnInit {
         </div>
       </div>`
       if(this.createMatch)
-        textHtml += `<a id="newMatch" class="waves-effect green waves-light btn-large">Partido</a>`
+        textHtml += `<a id="newMatch" class="waves-effect button-modal-grey green waves-light btn-large">Partido</a>`
       if(this.createTournament)
-        textHtml += `<a id="newTournament" class="waves-effect green waves-light btn-large">Torneo</a>`
+        textHtml += `<a id="newTournament" class="waves-effect button-modal-grey green waves-light btn-large">Torneo</a>`
       if(!this.createMatch && !this.createTournament){
-        textHtml += `<a style="margin-right:20px;" id="newMatch" class="waves-effect green waves-light btn-large">Partido</a>`
-        textHtml += `<a id="newTournament" class="waves-effect green waves-light btn-large">Torneo</a>`
+        textHtml += `<a style="margin-right:20px;" id="newMatch" class="waves-effect button-modal-grey green waves-light btn-large">Partido</a>`
+        textHtml += `<a id="newTournament" class="waves-effect button-modal-grey green waves-light btn-large">Torneo</a>`
       }
   
       swal({
@@ -429,7 +371,7 @@ export class MapComponent implements OnInit {
         html: textHtml,  
         showConfirmButton: false,
         showCloseButton: true
-      });
+      }).catch(swal.noop);
   
       $("#newMatch").on('click', () => {
         this.latMatch = marker.geometry.location.lat;
@@ -479,7 +421,7 @@ export class MapComponent implements OnInit {
         title: "Asignar como favorito", 
         html: textHtml,  
         showConfirmButton: false 
-      });
+      }).catch(swal.noop);
   
       let this_aux = this;
       $("#favoriteclub").on('click', () => {
@@ -513,46 +455,50 @@ export class MapComponent implements OnInit {
         text: 'Debes ingresar el título para el partido',
         type: 'error',
         confirmButtonColor: "#ff9800",
-      });
+      }).catch(swal.noop);
       return;
     }
-    if($(".type .active").text() == ""){
+    if(this.formMatch.value.type == ""){
       swal({
         title: 'Tipo de partido',
         text: 'Debes ingresar el tipo del partido',
         type: 'error',
         confirmButtonColor: "#ff9800",
-      });
+      }).catch(swal.noop);
       return;
     }
-    if($('.datepicker')[0].value == ""){
+    if(this.formMatch.value.date == null){
       swal({
         title: 'Fecha',
         text: 'Debes ingresar la fecha para el partido',
         type: 'error',
         confirmButtonColor: "#ff9800",
-      });
+      }).catch(swal.noop);
       return;
     }
-    if($('.timepicker')[0].value == ""){
+    if(this.formMatch.value.hour == null){
       swal({
         title: 'Hora',
         text: 'Debes ingresar la hora para el partido',
         type: 'error',
         confirmButtonColor: "#ff9800",
-      });
+      }).catch(swal.noop);
       return;
     }
-    let date = $('.datepicker')[0].value;
-    let hour = $('.timepicker')[0].value;
-    let type = $(".type .active").text();
+    let type;
+
+    if(this.formMatch.value == 1){
+      type = "Singles";
+    }else{
+      type = "Dobles";
+    }
 
     let data = {
       title: this.formMatch.value.title,
       type: type,
       isPrivate: this.formMatch.value.isPrivate,
-      date: date,
-      hour: hour,
+      date: this.formMatch.value.date,
+      hour: this.formMatch.value.hour,
       lon: this.lonMatch,
       lat: this.latMatch,
       googlePlaceId: this.googlePlaceIdMatch,
@@ -566,7 +512,7 @@ export class MapComponent implements OnInit {
           type: 'success',
           showConfirmButton: false,
           showCloseButton: true
-        });
+        }).catch(swal.noop);
         setTimeout(function(){ this_aux.navCtrl.push(HomePage); }, 3000);
       } ,
       (error) =>{
@@ -588,7 +534,7 @@ export class MapComponent implements OnInit {
         });
         return;
       }
-      if($(".count .active").text() == ""){
+      if(this.formTournament.value.count == ""){
         swal({
           title: 'Límite de jugadores',
           text: 'Debes indicar de cuantos jugadores es el torneo',
@@ -597,7 +543,7 @@ export class MapComponent implements OnInit {
         });
         return;
       }
-      if($('.datepicker2')[0].value == ""){
+      if(this.formTournament.value.date == null){
         swal({
           title: 'Fecha',
           text: 'Debes ingresar la fecha para el torneo',
@@ -606,7 +552,7 @@ export class MapComponent implements OnInit {
         });
         return;
       }
-      if($('.timepicker2')[0].value == ""){
+      if(this.formTournament.value.hour == null){
         swal({
           title: 'Hora',
           text: 'Debes ingresar la hora para el torneo',
@@ -615,25 +561,12 @@ export class MapComponent implements OnInit {
         });
         return;
       }
-      let date = $('.datepicker2')[0].value;
-      let hour = $('.timepicker2')[0].value;
-      let count;
-
-      if($(".count .active").text() == "4 Jugadores"){
-        count = 4;
-      }
-      if($(".count .active").text() == "8 Jugadores"){
-        count = 8;
-      }
-      if($(".count .active").text() == "16 Jugadores"){
-        count = 16;
-      }
   
       let data = {
         title: this.formTournament.value.title,
-        count: count,
-        date: date,
-        hour: hour,
+        count: this.formTournament.value.count,
+        date: this.formTournament.value.date,
+        hour: this.formTournament.value.hour,
         lon: this.lonTournament,
         lat: this.latTournament,
         googlePlaceId: this.googlePlaceIdTournament,
@@ -656,6 +589,13 @@ export class MapComponent implements OnInit {
       )
 
 
+  }
+
+  goCreateMatch(){
+    this.navCtrl.push(this.explorar,{option: "match"})
+  }
+  goCreateTournament(){
+    this.navCtrl.push(this.explorar,{option: "tournament"})
   }
 
 

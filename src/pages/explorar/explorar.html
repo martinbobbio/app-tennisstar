@@ -1,0 +1,19 @@
+<ion-content>
+
+  <headeraux nameHeader="{{headerName}}"></headeraux>
+  <br><br><br>
+
+  <div class="orange" style="padding:1px 10px 13px 10px;">
+    <div class="container">
+        <h4 *ngIf="type != 3 && !createMatch && !createTournament && !viewMatch && !viewTournament" style="margin:0;" class="white-text bold">Elige donde crear un Partido o Torneo</h4>
+        <h4 *ngIf="type != 3 && createMatch" style="margin:0;" class="white-text bold">Elige donde crear el Partido</h4>
+        <h4 *ngIf="type != 3 && createTournament" style="margin:0;" class="white-text bold">Elige donde crear el Torneo</h4>
+        <h4 *ngIf="type != 3 && viewMatch" style="margin:0;" class="white-text bold">Ver partidos disponibles</h4>
+        <h4 *ngIf="type != 3 && viewTournament" style="margin:0;" class="white-text bold">Ver torneos disponibles</h4>
+        <h4 *ngIf="type == 3" style="margin:0;" class="white-text bold">Elige club favorito</h4>
+    </div>
+</div>
+
+<map [type]=type [createMatch]="createMatch" [createTournament]="createTournament" [viewMatch]="viewMatch" [viewTournament]="viewTournament"></map>
+
+</ion-content>

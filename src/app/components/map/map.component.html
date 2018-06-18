@@ -13,7 +13,7 @@
     <div *ngIf="completeCharge" id="display-map" class="row absolute" style="top:0%;left:7%;width:90%">
         <div class="col m6 no-margin-mobile" style="margin-top:50px;">
           <h2 *ngIf="isNewUser == null" class="orange-text text-darken-1 fs-38">Impulsado por los mejores jugadores del mundo.</h2>
-          <h2 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-38">Solo faltan dos pasos. {{fullCount}}/2</h2>
+          <h2 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-38">Debes ir a la web y completar tus datos</h2>
           <h2 *ngIf="fullCount == 2" class="orange-text text-darken-1 fs-38">Felicidades eres un Tennisstar</h2>
             <div class="row">
               <div class="col m6">
@@ -25,10 +25,10 @@
           <span id="buttons-map">
           <a [navPush]="login" ion-button color="primary" *ngIf="isNewUser == null">Ingresa a TennisStar</a>
           <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2 && fullPlayer != true">Completa tus datos</a>
-          <a ion-button color="primary" *ngIf="fullCount == 2">Crear partido</a>
+          <a ion-button color="primary" (click)="goCreateMatch()" *ngIf="fullCount == 2">Crear partido</a>
           <br><br>
           <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2  && fullGame != true">Completa tu perfil</a>
-          <a ion-button color="primary" *ngIf="fullCount == 2">Crear torneo</a>
+          <a ion-button color="primary" (click)="goCreateTournament()" *ngIf="fullCount == 2">Crear torneo</a>
           </span>
         </div>
     </div>
@@ -53,42 +53,48 @@
   </agm-map>
 
   <ng-container *ngIf="!viewMatch && !viewTournament">
-    <div id="newMatchForm" class="container d-none">
+    <div id="newMatchForm" class="container d-none" style="padding:10px;">
       <h3 class="orange-text">Partido en {{namePlaceMatch}}</h3>
       <div class="row">
           <form (ngSubmit)="newMatch()" [formGroup]="formMatch" novalidate="novalidate" class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <input formControlName="title" id="title" type="text" class="validate">
-                <label for="title">Nombre del partido</label>
+              <div style="width:100%;">
+                <ion-item>
+                  <ion-input placeholder="Título"formControlName="title" id="title" type="text" class="validate"></ion-input>
+                </ion-item>
               </div>
-              <div class="input-field col s12">
-                <select formControlName="type" name='type' id='type' class='type'>
-                  <option [ngValue]="undefined" disabled selected>Tipo de juego</option>
-                  <option [ngValue]="1">Singles</option>
-                  <option [ngValue]="2">Dobles</option>
-                </select>
-                <label>Tipo de juego</label>
+              <div style="width:100%">
+                <ion-list>
+                  <ion-item>
+                    <ion-label>Tipo de juego</ion-label>
+                    <ion-select formControlName="type" name='type' id='type' class='type'>
+                      <ion-option value="1">Singles</ion-option>
+                      <ion-option value="2">Dobles</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
               </div>
-              <div class="col s6">
-                  <small class="grey-text">Fecha</small>
-                  <input formControlName="date" type="text" class="datepicker">
+              <div style="width:100%">
+                <ion-item>
+                  <ion-label>Fecha</ion-label>
+                  <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="date"></ion-datetime>
+                </ion-item>
               </div>
-              <div class="col s6">
-                  <small class="grey-text">Hora</small>
-                  <input formControlName="hour" type="text" class="timepicker">
+              <div style="width:100%">
+                <ion-item>
+                  <ion-label>Hora</ion-label>
+                  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="hour"></ion-datetime>
+                </ion-item>
               </div>
-              <div class="col s12">
-                <p>
-                  <input type="checkbox" formControlName="isPrivate" id="isPrivate" checked="isPrivate" />
-                  <label for="isPrivate">Privado</label>
-                </p>
+              <div style="width:100%">
+                <ion-item>
+                  <ion-label>Privado</ion-label>
+                  <ion-checkbox color="secondary" type="checkbox" formControlName="isPrivate" id="isPrivate" checked="isPrivate" checked="true"></ion-checkbox>
+                </ion-item>
               </div>
               <div class="col s12">
                 <br>
-                <button type='submit' id="btn_submit" name='btn_submit' class='col s12 btn btn-large waves-effect orange'>Crear partido</button>
+                <button type='submit' id="btn_submit" name='btn_submit' class='col button-modal-orange s12 btn btn-large waves-effect orange'>Crear partido</button>
               </div>
-            </div>
           </form>
       </div>
     </div>
@@ -96,39 +102,45 @@
 
 
   <ng-container *ngIf="!viewMatch && !viewTournament">
-    <div id="newTournamentForm" class="container d-none">
+    <div id="newTournamentForm" class="container d-none" style="padding:10px;">
       <h3 class="orange-text">Torneo en {{namePlaceTournament}}</h3>
-      <div class="row">
-          <form (ngSubmit)="newTournament()" [formGroup]="formTournament" novalidate="novalidate" class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <input formControlName="title" id="title" type="text" class="validate">
-                <label for="title">Nombre del torneo</label>
-              </div>
-              <div class="input-field col s12">
-                <select formControlName="count" name='count' id='count' class='count'>
-                  <option [ngValue]="undefined" disabled selected>Límite de jugadores</option>
-                  <option id="4" [ngValue]="4">4 Jugadores</option>
-                  <option id="8" [ngValue]="8">8 Jugadores</option>
-                  <option id ="16" [ngValue]="16">16 Jugadores</option>
-                </select>
-                <label>Límite de jugadores</label>
-              </div>
-              <div class="col s6">
-                  <small class="grey-text">Fecha</small>
-                  <input formControlName="date" type="text" class="datepicker2">
-              </div>
-              <div class="col s6">
-                  <small class="grey-text">Hora</small>
-                  <input formControlName="hour" type="text" class="timepicker2">
-              </div>
-              <div class="col s12">
-                <br>
-                <button type='submit' id="btn_submit" name='btn_submit' class='col s12 btn btn-large waves-effect orange'>Crear torneo</button>
-              </div>
+        <form (ngSubmit)="newTournament()" [formGroup]="formTournament" novalidate="novalidate" class="col s12">
+          <div class="row">
+            <div style="width:100%;">
+              <ion-item>
+                <ion-input placeholder="Título"formControlName="title" id="title" type="text" class="validate"></ion-input>
+              </ion-item>
             </div>
-          </form>
-      </div>
+            <div style="width:100%">
+              <ion-list>
+                <ion-item>
+                  <ion-label>Límite de jugadores</ion-label>
+                  <ion-select formControlName="count" name='count' id='count' class='count'>
+                    <ion-option value="4">4 Jugadores</ion-option>
+                    <ion-option value="8">8 Jugadores</ion-option>
+                    <ion-option value="16">16 Jugadores</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+            </div>
+            <div style="width:100%">
+              <ion-item>
+                <ion-label>Fecha</ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="date"></ion-datetime>
+              </ion-item>
+            </div>
+            <div style="width:100%">
+              <ion-item>
+                <ion-label>Hora</ion-label>
+                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="hour"></ion-datetime>
+              </ion-item>
+            </div>
+            <div style="width:100%">
+              <br>
+              <button type='submit' id="btn_submit" name='btn_submit' class='col s12 button-modal-orange btn btn-large waves-effect orange'>Crear torneo</button>
+            </div>
+          </div>
+        </form>
     </div>
   </ng-container>
 

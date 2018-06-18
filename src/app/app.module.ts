@@ -40,7 +40,6 @@ import { SafePipe } from './pipes/safe.pipe';
 
 //Pages
 import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -48,6 +47,7 @@ import { RegisterPage } from '../pages/register/register';
 import { StatsPage } from '../pages/stats/stats';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { TournamentPage } from '../pages/tournament/tournament';
+import { ExplorarPage } from '../pages/explorar/explorar';
 
 //Componentes
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -65,7 +65,6 @@ import { HeaderAuxComponent } from './components/header/header';
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     SafePipe,
@@ -74,6 +73,7 @@ import { HeaderAuxComponent } from './components/header/header';
     StatsPage,
     NotificationsPage,
     TournamentPage,
+    ExplorarPage,
     HeaderComponent,
     FooterComponent,
     MapComponent,
@@ -107,7 +107,6 @@ import { HeaderAuxComponent } from './components/header/header';
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
@@ -115,6 +114,7 @@ import { HeaderAuxComponent } from './components/header/header';
     StatsPage,
     NotificationsPage,
     TournamentPage,
+    ExplorarPage,
   ],
   providers: [
     StatusBar,

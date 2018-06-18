@@ -46,11 +46,6 @@
 }
 
 /*Scrollbar*/
-body::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-}
 body::-webkit-scrollbar
 {
 	width: 6px;
@@ -116,6 +111,9 @@ body::-webkit-scrollbar-thumb
 .yellow-text{
     color: #ffeb3b !important;
 }
+.red-text{
+    color: #f44336 !important;
+}
 .circle {
     border-radius: 50%;
 }
@@ -145,3 +143,17 @@ body::-webkit-scrollbar-thumb
     font-size: 16px;
 }
 
+.button-modal-orange {
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.scroll-content{
+    margin-bottom:0px !important;
+}

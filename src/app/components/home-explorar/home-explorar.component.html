@@ -21,7 +21,7 @@
                         </ion-row>
                     </ion-grid>
                 </ion-card-header>
-                <ion-card-content>
+                <ion-card-content style="min-height: 0px;">
                     <p>{{user.gameStyle}} -
                         {{user.gameLevel}}
                     </p>
@@ -65,7 +65,7 @@
                             </ion-row>
                         </ion-grid>
                     </ion-card-header>
-                    <ion-card-content>
+                    <ion-card-content style="min-height: 0px;">
                         <br>
                         <p class="black-text">{{match.title}}</p>
                         <ng-container *ngIf="match.type == 'Dobles' && match.player1AId != null && match.player1BId != null && match.player2AId != null && match.player2BId != null">
@@ -162,7 +162,7 @@
                         </ion-row>
                     </ion-grid>
                 </ion-card-header>
-                <ion-card-content>
+                <ion-card-content style="min-height: 0px;">
                     <p [innerHTML]="getRatingClub(club.rating)"></p>
                     {{club.cantidad}} usuarios
                     <br>
@@ -191,7 +191,7 @@
                         </ion-row>
                     </ion-grid>
                 </ion-card-header>
-                <ion-card-content>
+                <ion-card-content style="min-height: 0px;">
                     
                     <p>{{tournament.date}}</p>
                     <a ion-button clear color="secondary" href="tournament/{{tournament.id}}" class="btn-flat orange-text bold">Ver torneo</a>

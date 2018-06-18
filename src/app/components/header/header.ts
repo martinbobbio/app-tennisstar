@@ -12,6 +12,7 @@ import { NavController,MenuController } from "ionic-angular";
 import { StatsPage } from '../../../pages/stats/stats';
 import { TournamentPage } from '../../../pages/tournament/tournament';
 import { NotificationsPage } from '../../../pages/notifications/notifications';
+import { ExplorarPage } from '../../../pages/explorar/explorar';
 
 import * as swal from 'sweetalert2';
 declare let $: any;
@@ -25,6 +26,7 @@ export class HeaderAuxComponent implements OnInit {
   stats = StatsPage;
   notifications = NotificationsPage;
   tournament = TournamentPage;
+  explorar = ExplorarPage;
 
   openMenu:boolean = false;
   openMenuScroll = false;
@@ -56,6 +58,9 @@ export class HeaderAuxComponent implements OnInit {
 
   @Input() nameHeader:string = "";
 
+  requestCount = 0;
+  eventCount = 0;
+
   openAside(){
     if(!this.openMenu){
       $(".sidebar-left-collapse").fadeIn();
@@ -68,6 +73,8 @@ export class HeaderAuxComponent implements OnInit {
   }
 
   openRequests(){
+
+    this.requestCount = this.requestFriends.length + this.requestMatch.length;
     
     if(this.requestFriends.length != 0 || this.requestMatch.length != 0){
       $("#btn-request").removeClass("red-text");
@@ -76,7 +83,7 @@ export class HeaderAuxComponent implements OnInit {
         confirmButtonText: "Volver", 
         confirmButtonColor: "#ff9800",
         showCloseButton: true,
-      });
+      }).catch(swal.noop);
 
       let this_aux = this;
 
@@ -131,7 +138,7 @@ export class HeaderAuxComponent implements OnInit {
         text: "No tienes solicitudes", 
         confirmButtonText: "Volver", 
         confirmButtonColor: "#ff9800"
-      });
+      }).catch(swal.noop);;
     }
   }
 
@@ -202,7 +209,7 @@ export class HeaderAuxComponent implements OnInit {
         confirmButtonText: "Volver", 
         confirmButtonColor: "#ff9800",
         showCloseButton: true,
-      });
+      }).catch(swal.noop);;
 
   }
 
@@ -270,11 +277,6 @@ export class HeaderAuxComponent implements OnInit {
 
   }
 
-  toogleMenu(){
-    alert("XD");
-    this.menuCtrl.toggle();
-  }
-
   adminTournament(){
 
     let textHtml = ``
@@ -326,23 +328,23 @@ export class HeaderAuxComponent implements OnInit {
     <br>
     <div class="row">
       <div class='input-field col s12 m6'>
-        <input type='password' id="new-pass"/>
-        <label>Contraseña nueva</label>
+        <label>Contraseña nueva</label><br>
+        <input type='password' id="new-pass"/><br>
       </div>
       <div class='input-field col s12 m6'>
-        <input type='password' id="new-pass2"/>
-        <label>Repite contraseña nueva</label>
+        <label>Repite contraseña nueva</label><br>
+        <input type='password' id="new-pass2"/><br>
       </div>
       <div class='input-field col s12'>
-        <input type='password' id="pass1"/>
-        <label>Contraseña anterior</label>
+        <label>Contraseña anterior</label><br>
+        <input type='password' id="pass1"/><br>
       </div>
       <div class='input-field col s12'>
-        <input type='password' id="pass2"/>
-        <label>Repite la contraseña anterior</label>
+        <label>Repite la contraseña anterior</label><br>
+        <input type='password' id="pass2"/><br>
       </div>
       <div class="col s12">
-        <button id="changePassword">Cambiar contraseña</button>
+        <button id="changePassword" class="button-modal-grey">Cambiar contraseña</button>
         <div id="loader" class="row" style="display:none;">
           <div class="progress">
             <div class="col s12">
@@ -375,7 +377,7 @@ export class HeaderAuxComponent implements OnInit {
           type: "info",  
           showConfirmButton: false,
           showCloseButton: true
-        });
+        }).catch(swal.noop);
         return;
       }
 
@@ -386,7 +388,7 @@ export class HeaderAuxComponent implements OnInit {
           type: "info",  
           showConfirmButton: false,
           showCloseButton: true
-        });
+        }).catch(swal.noop);
         return;
       }
       
@@ -412,7 +414,7 @@ export class HeaderAuxComponent implements OnInit {
               type: "success",  
               showConfirmButton: false,
               showCloseButton: true
-            });
+            }).catch(swal.noop);
           }else if(status == 0){
             swal({
               title: "Error", 
@@ -420,7 +422,7 @@ export class HeaderAuxComponent implements OnInit {
               type: "error",  
               showConfirmButton: false,
               showCloseButton: true
-            });
+            }).catch(swal.noop);
           }
           
         }
@@ -433,7 +435,7 @@ export class HeaderAuxComponent implements OnInit {
         type: "error",  
         showConfirmButton: false,
         showCloseButton: true
-      });
+      }).catch(swal.noop);;
     }
 
       
@@ -462,16 +464,16 @@ export class HeaderAuxComponent implements OnInit {
           for (let m of this.matchs) {
             this.matchHtml += `
             <div class="card green">
-            <div class="card-content left-align white-text">
-              <span class="card-x fs-19 goProfile">${m.title} (${m.type})</span>
-              <br> <span class="bold fs-14">${m.dateText}</span>
+            <div class="card-content left-align">
+              <span class="card-x green-text bold fs-19 goProfile">${m.title} (${m.type})</span>
+              <br> <span class="bold green-text fs-14">${m.dateText}</span>
               <br><br>
-              <div class="row">
+              <div class="row" style="width:100%;">
                 <div class="col s4 left-align">
                 `
                 if(m.type == "Singles" && m.count == 2){
                   this.matchHtml += `
-                  <div class ="row">
+                  <div class ="row" style="width:100%;">
                     <div class ="col s6">
                       <img id="${m.player1AId}" src="${this_aux.path}${m.player1APath}" width="35px" height="35px" alt="z" class="circle pointer goProfile">
                     </div>
@@ -488,7 +490,7 @@ export class HeaderAuxComponent implements OnInit {
                 }
                 if(m.type == "Dobles" && m.count == 4){
                   this.matchHtml += `
-                  <div class ="row">
+                  <div class ="row" style="width:100%;">
                     <div class ="col s6">
                       <img id="${m.player1AId}" src="${this_aux.path}${m.player1APath}" width="35px" height="35px" alt="z" class="circle pointer goProfile">
                       <br><br>
@@ -504,7 +506,7 @@ export class HeaderAuxComponent implements OnInit {
                 }
                 if(m.type == "Dobles" && m.count != 4){
                   this.matchHtml += `
-                  <div class ="row">
+                  <div class ="row" style="width:100%;">
                   `
                   if(m.player1AId != null){
                     this.matchHtml += `
@@ -540,31 +542,36 @@ export class HeaderAuxComponent implements OnInit {
                 }
                 this.matchHtml += ` 
                 </div>
-                <div class="col s8 left-align">
+                <div class="left-align" style="width:100%;">
                 `
                 if(m.type == "Singles" && m.count == 2){
                   this.matchHtml += `
-                  <p id="${m.player1AId}" class="pointer fs-22 center-align goProfile">${m.player1AUsername}</p>
-                  <p class="center-align fs-14">VS</p>
-                  <p id="${m.player2AId}" class="pointer fs-22 center-align goProfile">${m.player2AUsername}</p>
+                  <p class="pointer fs-14 black-text center-align">
+                  <span id="${m.player1AId}" class="goProfile"> ${m.player1AUsername}</span>
+                  VS
+                  <span id="${m.player2AId}" class="goProfile">${m.player2AUsername}</span>
+                  </p>
+                  <p id="${m.player2AId}" class="pointer fs-14 black-text center-align goProfile"></p>
                   `
                 }
                 if(m.type == "Singles" && m.count == 1){
                   this.matchHtml += `
-                  <span class="fs-22">Estás esperando un jugador más</span>
+                  <span class="fs-14">Estás esperando un jugador más</span>
                   `
                 }
                 if(m.type == "Dobles" && m.count == 4){
                   this.matchHtml += `
                   <br>
-                  <p id="${m.player1AId}" class="pointer fs-22 center-align goProfile">${m.player1AUsername} y ${m.player1BUsername}</p>
-                  <p class="center-align fs-14">VS</p>
-                  <p id="${m.player2AId}" class="pointer fs-22 center-align goProfile">${m.player2AUsername} y ${m.player2BUsername}</p>
+                  <p class="pointer fs-14 black-text center-align">
+                  ${m.player1AUsername} y ${m.player1BUsername}
+                  VS
+                  ${m.player2AUsername} y ${m.player2BUsername}
+                  </p>
                   `
                 }
                 if(m.type == "Dobles" && m.count != 4){
                   this.matchHtml += `
-                  <p id="${m.player1AId}" class="fs-22 center-align">${m.player1AUsername} ${m.player1BUsername} ${m.player2AUsername} ${m.player2BUsername} están buscando jugadores</p>
+                  <p id="${m.player1AId}" class="fs-14 black-text center-align">${m.player1AUsername} ${m.player1BUsername} ${m.player2AUsername} ${m.player2BUsername} están buscando jugadores</p>
                   `
                 }
                 this.matchHtml += ` 
@@ -576,12 +583,13 @@ export class HeaderAuxComponent implements OnInit {
               if((m.type == "Singles" && m.count == 2) || (m.type == "Dobles" && m.count == 4)){
                 this.matchHtml += `
                 <div class="card-action white">
-                  <a style="margin-right:0px;" id="${m.idMatch}" class="uploadResult green-text pointer">Subir resultado</a>
+                  <a style="margin-right:0px;" id="${m.idMatch}" class="uploadResult button-modal-grey white-text pointer">Subir resultado</a>
                 </div>
                 `
               }
               this.matchHtml += ` 
           </div>
+          <br><br>
             `
         }
       }
@@ -596,40 +604,37 @@ export class HeaderAuxComponent implements OnInit {
         swal.close();
 
         let textHtml = `<br>
-        <div class="row">
-          <div class="input-field col s4">
-            <input id="set1a" type="number" min=0 max=7 class="validate">
-            <label for="set1a">Primer set tuyo</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="set2a" type="number" min=0 max=7 class="validate">
-            <label for="set2a">Segundo set tuyo</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="set3a" type="number" min=0 max=7 class="validate">
-            <label for="set3a">Tercer set tuyo</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="set1b" type="number" min=0 max=7 class="validate">
-            <label for="set1b">Primer set rival</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="set2b" type="number" min=0 max=7 class="validate">
-            <label for="set2b">Segundo set rival</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="set3b" type="number" min=0 max=7 class="validate">
-            <label for="set3b">Tercer set rival</label>
-          </div>
-          <div class="col s12">
+          <label for="set1a">Primer set tuyo</label>
+          <br>
+          <input style="width:100%" id="set1a" type="number" min=0 max=7 class="validate">
+
+          <label for="set1b">Primer set rival</label>
+          <br>
+          <input style="width:100%" id="set1b" type="number" min=0 max=7 class="validate">
+
+          <label for="set2a">Segundo set tuyo</label>
+          <br>
+          <input style="width:100%" id="set2a" type="number" min=0 max=7 class="validate">
+
+          <label for="set2b">Segundo set rival</label>
+          <br>
+          <input style="width:100%" id="set2b" type="number" min=0 max=7 class="validate">
+
+          <label for="set3a">Tercer set tuyo</label>
+          <br>
+          <input style="width:100%" id="set3a" type="number" min=0 max=7 class="validate">
+
+          <label for="set3b">Tercer set rival</label>
+          <br>
+          <input style="width:100%" id="set3b" type="number" min=0 max=7 class="validate">
+            
             <div id="loaderMatch" class="progress" style="display:none;">
                 <div class="indeterminate"></div>
             </div>
-            <a id="buttonUpload" class="uploadScore waves-effect waves-light btn green">Subir</a>
+            <br>
+            <a id="buttonUpload" class="uploadScore button-modal-grey waves-effect waves-light btn green">Subir</a>
             <br><br>
             <span id="warning-score" class="red-text"></span>
-          </div>
-        </div>
         `
 
         swal({
@@ -728,23 +733,17 @@ export class HeaderAuxComponent implements OnInit {
           `
           for (let t of this.tournaments) {
             this.tournamentHtml += `
-            <div class="card green">
-              <div class="card-content left-align white-text">
-                <div class="col s8">
-                </div>
-                <div class="col s4">
-                  <a href="/club/${t["googlePlaceId"]}" class="waves-effect waves-light btn black">Club</a>
-                </div>
-                <span class="card-x fs-19">${t["title"]}</span>
-                <br> <span class="bold fs-14">${t["date"]}</span>
-                <br><br>
-                <span class="bold fs-14">${t["countStatus"]}/${t["countTotal"]} Jugadores</span>
+              <div class="left-align black-text">
+                <a href="/club/${t["googlePlaceId"]}" class="waves-effect waves-light btn black">Club</a>
+                <p class="card-x green-text fs-19">${t["title"]} (${t["date"]})</p>
+                <p class="bold fs-14">${t["countStatus"]}/${t["countTotal"]} Jugadores</p>
+                <a id="view-tournament-${t["id"]}" class="white-text button-modal-grey pointer">Ver</a>
               </div>
-              <div class="card-action white">
-                <a style="margin-right:0px;" href="/tournament/${t["id"]}" class="green-text pointer">Ver</a>
-              </div>
-            </div>
               `
+              $(document).on('click', "#view-tournament-"+t["id"], ()=> {
+                swal.close();
+                this.navCtrl.push(this.tournament,{id: t["id"]})
+              });
             }
             this.tournamentHtml += `
           </div>
@@ -753,6 +752,8 @@ export class HeaderAuxComponent implements OnInit {
           $("#btn-event").fadeIn();
           $("#load-events").fadeOut();
           this.loadingBar.complete();
+
+          this.eventCount = this.matchs.length + this.tournament.length;
         });
 
         
@@ -788,14 +789,14 @@ export class HeaderAuxComponent implements OnInit {
                     <img id="${rf.id_user}" src="${this_aux.path}${rf.path}" alt="" class="circle pointer responsive-img goProfile">
                   </div>
                   <div class="col s9 left-align ">
-                    <p id="${rf.id_user}" class="pointer goProfile">${rf.firstname} ${rf.lastname}</p>
-                    <p style="margin-top:15px;">${rf.gameLevel} - ${rf.gameStyle}</p>
+                    <p id="${rf.id_user}" class="pointer black-text goProfile">${rf.firstname} ${rf.lastname}</p>
+                    <p class="black-text" style="margin-top:15px;">${rf.gameLevel} - ${rf.gameStyle}</p>
                   </div>
                 </div>
               </div>
               <div class="card-action white">
-                <a id="${rf.id}" class="acceptRequestFriend green-text pointer">Aceptar</a>
-                <a id="${rf.id}" class="declineRequestFriend red-text pointer">Rechazar</a>
+                <a id="${rf.id}" class="acceptRequestFriend green-text btn-modal pointer">Aceptar</a>
+                <a id="${rf.id}" class="declineRequestFriend btn-modal red-text pointer">Rechazar</a>
               </div>
             </div>
               `
@@ -820,15 +821,15 @@ export class HeaderAuxComponent implements OnInit {
                 this.requestMatchHtml += `
                 <div class="card green">
                 <div class="card-content left-align white-text">
-                  <span id="${rm.id_user}" class="card-title pointer goProfile">${rm.username} te ha invitado a un singles</span>
+                  <span id="${rm.id_user}" class="card-title black-text pointer goProfile">${rm.username} te ha invitado a un singles</span>
                   <br>
                   <div class="row">
                     <div class="col s3 left-align ">
                       <img id="${rm.id_user}" src="${this_aux.path}${rm.path}" alt="" class="circle pointer responsive-img goProfile">
                     </div>
                     <div class="col s9 left-align ">
-                      <p id="${rm.id_user}" class="pointer goProfile">${rm.firstname} ${rm.lastname} te ha invitado a jugar en su club el dia ${rm.dateText}.</p>
-                      <p style="margin-top:15px;">${rm.gameLevel} - ${rm.gameStyle}</p>
+                      <p id="${rm.id_user}" class="pointer black-text goProfile">${rm.firstname} ${rm.lastname} te ha invitado a jugar en su club el dia ${rm.dateText}.</p>
+                      <p class="black-text" style="margin-top:15px;">${rm.gameLevel} - ${rm.gameStyle}</p>
                     </div>
                   </div>
                 </div>
@@ -851,6 +852,13 @@ export class HeaderAuxComponent implements OnInit {
   logout(){
     this.auth.logout();
     location.reload();
+  }
+
+  goCreateMatch(){
+    this.navCtrl.push(this.explorar,{option: "match"})
+  }
+  goCreateTournament(){
+    this.navCtrl.push(this.explorar,{option: "tournament"})
   }
 
 }
