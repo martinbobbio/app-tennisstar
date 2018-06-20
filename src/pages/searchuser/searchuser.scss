@@ -1,0 +1,21 @@
+.gradient-45deg-orange-teal {
+    background: #ff9800;
+    background: -webkit-linear-gradient(45deg, #ff9800 0%, #f57c00 100%);
+    background: linear-gradient(45deg, #ff9800 0%, #f57c00 100%);
+}
+
+.header-search-input {
+    display: block;
+    padding: 8px 8px 8px 72px;
+    width: 87%;
+    background: rgba(255, 255, 255, 0.3);
+    height: 24px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    border: none;
+    font-size: 16px;
+    appearance: textfield;
+    font-weight: 400;
+    outline: none;
+    border-radius: 3px;
+}

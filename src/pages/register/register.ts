@@ -6,7 +6,6 @@ import { LoginService } from '../../app/services/login.service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 
-import * as $ from 'jquery';
 import * as swal from 'sweetalert2';
 
 @Component({

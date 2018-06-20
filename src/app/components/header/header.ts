@@ -753,7 +753,7 @@ export class HeaderAuxComponent implements OnInit {
           $("#load-events").fadeOut();
           this.loadingBar.complete();
 
-          this.eventCount = this.matchs.length + this.tournament.length;
+          this.eventCount = this.matchs.length + this.tournaments.length;
         });
 
         

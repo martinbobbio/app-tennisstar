@@ -3,13 +3,15 @@ import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { RequestFriendService } from '../../services/request-friend.service';
 import { MatchService } from '../../services/match.service';
+import { NavController } from "ionic-angular";
 import { TournamentService } from '../../services/tournament.service';
 import { MapService } from '../../services/map.service';
+import { SearchUserPage } from '../../../pages/searchuser/searchuser';
+import { UserPage } from '../../../pages/user/user';
 
 import * as swal from 'sweetalert2';
 
 declare let $: any;
-
 
 @Component({
   selector: 'home-explorar',
@@ -31,7 +33,9 @@ export class HomeExplorarComponent implements OnInit {
 
   path:string = environment.backPathImage;
 
-  constructor(public userService:UserService,public mapService:MapService,public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
+  searchuser = SearchUserPage;
+
+  constructor(public userService:UserService,public navCtrl: NavController, public mapService:MapService,public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
 
   ngOnInit() {
 
@@ -119,6 +123,13 @@ export class HomeExplorarComponent implements OnInit {
     }else{
       return "assets/images/fondo-tenis.jpg"
     }
+  }
+
+  goSearchUser(){
+    this.navCtrl.push(SearchUserPage);
+  }
+  goUser(id){
+    this.navCtrl.push(UserPage ,{id: id})
   }
 
   sendRequest(id){

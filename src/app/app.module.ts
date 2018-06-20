@@ -48,6 +48,8 @@ import { StatsPage } from '../pages/stats/stats';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { TournamentPage } from '../pages/tournament/tournament';
 import { ExplorarPage } from '../pages/explorar/explorar';
+import { SearchUserPage } from '../pages/searchuser/searchuser';
+import { UserPage } from '../pages/user/user';
 
 //Componentes
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -73,7 +75,9 @@ import { HeaderAuxComponent } from './components/header/header';
     StatsPage,
     NotificationsPage,
     TournamentPage,
+    UserPage,
     ExplorarPage,
+    SearchUserPage,
     HeaderComponent,
     FooterComponent,
     MapComponent,
@@ -115,6 +119,8 @@ import { HeaderAuxComponent } from './components/header/header';
     NotificationsPage,
     TournamentPage,
     ExplorarPage,
+    SearchUserPage,
+    UserPage
   ],
   providers: [
     StatusBar,
