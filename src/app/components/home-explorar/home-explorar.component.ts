@@ -5,6 +5,10 @@ import { RequestFriendService } from '../../services/request-friend.service';
 import { MatchService } from '../../services/match.service';
 import { TournamentService } from '../../services/tournament.service';
 import { MapService } from '../../services/map.service';
+import { NavController } from "ionic-angular";
+import { ExplorarPage } from '../../../pages/explorar/explorar';
+import { TournamentPage } from '../../../pages/tournament/tournament';
+import { ClubPage } from '../../../pages/club/club';
 
 import * as swal from 'sweetalert2';
 
@@ -31,7 +35,11 @@ export class HomeExplorarComponent implements OnInit {
 
   path:string = environment.backPathImage;
 
-  constructor(public userService:UserService,public mapService:MapService,public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
+  explorar = ExplorarPage;
+  tournament = TournamentPage;
+  club = ClubPage;
+
+  constructor(public userService:UserService,public mapService:MapService,public navCtrl:NavController, public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
 
   ngOnInit() {
 
@@ -171,6 +179,22 @@ export class HomeExplorarComponent implements OnInit {
             } ,
           )
          });
+  }
+
+  viewTournaments(){
+    this.navCtrl.parent.select(3);
+  }
+  viewMatchs(){
+    this.navCtrl.parent.select(2);
+  }
+  assignClub(){
+    this.navCtrl.push(this.explorar,{option: "favoriteClub"})
+  }
+  infoTournament(id){
+    this.navCtrl.push(this.tournament,{id: id})
+  }
+  goClub(id){
+    this.navCtrl.push(this.club,{id: id})
   }
 
 }

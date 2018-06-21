@@ -15,13 +15,14 @@ export class ExplorarPage {
   viewTournament:boolean = false;
 
   headerName = "Explorar";
+  mapSize = "350px";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-      console.log(this.navParams);
-
       if(this.navParams.get('option') && this.navParams.get('option') == "favoriteClub"){
         this.type = 3;
+        this.headerName = "Club Favorito";
+        this.mapSize = "500px";
       }
       if(this.navParams.get('option') && this.navParams.get('option') == "match"){
         this.createMatch = true;
@@ -35,10 +36,12 @@ export class ExplorarPage {
         if(this.navParams.data.option == "verPartidos"){
           this.viewMatch = true;
           this.headerName = "Partidos";
+          this.mapSize = "500px";
         }
         if(this.navParams.data.option == "verTorneos"){
           this.viewTournament = true;
           this.headerName = "Torneos";
+          this.mapSize = "500px";
         }
       }
   }

@@ -48,10 +48,8 @@
         <ion-item (click)="logout()">Salir</ion-item>
 
         <ion-item-divider color="secondary">Eventos</ion-item-divider>
-        <ion-item (click)="goCreateMatch()">Crear partido</ion-item>
-        <ion-item (click)="goCreateTournament()">Crear torneo</ion-item>
         <ion-item (click)="adminTournament()">Mis torneos</ion-item>
-        <ion-item>Asignar club favorito</ion-item>
+        <ion-item (click)="goAssignClub()">Asignar club favorito</ion-item>
 
         <ion-item-divider *ngIf="isAdmin == 1" color="dark">Administrador</ion-item-divider>
         <ion-item (click)="navCtrl.push(stats)">Estadísticas</ion-item>

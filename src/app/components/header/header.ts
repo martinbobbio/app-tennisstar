@@ -860,5 +860,8 @@ export class HeaderAuxComponent implements OnInit {
   goCreateTournament(){
     this.navCtrl.push(this.explorar,{option: "tournament"})
   }
+  goAssignClub(){
+    this.navCtrl.push(this.explorar,{option: "favoriteClub"})
+  }
 
 }

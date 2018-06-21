@@ -1,7 +1,7 @@
 <ng-container *ngIf="type == 1">
   <div class="relative">
     <div class="blur">
-      <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false>
+      <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false style="height: 325px">
         <ng-container *ngFor="let marker of places">
             <agm-marker [latitude]="marker.geometry.location.lat" [longitude]="marker.geometry.location.lng" iconUrl="assets/images/marker1.png"></agm-marker>
         </ng-container>
@@ -18,17 +18,16 @@
             <div class="row">
               <div class="col m6">
                 <h3 *ngIf="isNewUser == null" class="orange-text text-darken-1 fs-25">Conviertete en uno de ellos.</h3>
-                <h3 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-25">Ingresa tus datos y estilo de juego.</h3>
-                <h3 *ngIf="fullCount == 2" class="orange-text text-darken-1 fs-25">Comienza a interactuar en nuestra red.</h3>
+                <h3 *ngIf="isNewUser && fullCount != 2" class="orange-text text-darken-1 fs-25">Ingresa tus datos y estilo de juego. en la WEB.</h3>
+                <h3 *ngIf="fullCount == 2" class="orange-text text-darken-1 fs-25">Ve a Explorar, crea partidos, eventos y más...</h3>
               </div>
             </div>
           <span id="buttons-map">
           <a [navPush]="login" ion-button color="primary" *ngIf="isNewUser == null">Ingresa a TennisStar</a>
           <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2 && fullPlayer != true">Completa tus datos</a>
-          <a ion-button color="primary" (click)="goCreateMatch()" *ngIf="fullCount == 2">Crear partido</a>
+          <a ion-button color="primary" (click)="goExplorar()" *ngIf="fullCount == 2">Explorar</a>
           <br><br>
           <a ion-button color="primary" *ngIf="isNewUser && fullCount != 2  && fullGame != true">Completa tu perfil</a>
-          <a ion-button color="primary" (click)="goCreateTournament()" *ngIf="fullCount == 2">Crear torneo</a>
           </span>
         </div>
     </div>
@@ -37,7 +36,7 @@
 
 <ng-container *ngIf="type == 2 || type == 3">
   
-  <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false>
+  <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [streetViewControl]=false [zoomControl]=false [ngStyle]="{'height' : mapSize}">
     <ng-container *ngFor="let marker of places">
         <agm-marker (markerClick)="selectMarker(marker)"  [latitude]="marker.geometry.location.lat" [longitude]="marker.geometry.location.lng" iconUrl="assets/images/marker1.png" [title]="marker.name"></agm-marker>
     </ng-container>

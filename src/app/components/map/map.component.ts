@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { MatchService } from '../../services/match.service';
 import { TournamentService } from '../../services/tournament.service';
 import { environment } from '../../../environments/environment';
+import { Geolocation } from '@ionic-native/geolocation';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../../../pages/home/home';
@@ -26,6 +27,7 @@ export class MapComponent implements OnInit {
   @Input() createTournament:boolean = false;
   @Input() viewMatch:boolean = false;
   @Input() viewTournament:boolean = false;
+  @Input() mapSize:string = "350px";
 
   isNewUser;
 
@@ -70,7 +72,7 @@ export class MapComponent implements OnInit {
   location:any;
   isLocation:boolean = false;
 
-  constructor(public mapService:MapService,public navCtrl: NavController, public userService:UserService,public tournamentService:TournamentService, public matchService:MatchService) {
+  constructor(public mapService:MapService,public navCtrl: NavController,private geolocation: Geolocation, public userService:UserService,public tournamentService:TournamentService, public matchService:MatchService) {
     this.formMatch = new FormGroup({
       'title': new FormControl('',Validators.required),
       'type': new FormControl('',Validators.required),
@@ -90,55 +92,34 @@ export class MapComponent implements OnInit {
   ngOnInit() {
 
     let this_aux = this;
-    
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(position => {
-          this.location = position.coords;
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
-          this.isLocation = true;
 
-          if(this.viewMatch == false && this.viewTournament == false){
-            this.mapService.getClubes(this.lat, this.lng).subscribe(
-              (data) => {
-                this.places = data.data[0].results;
-              })
-          }
-          if(this.viewMatch == true){
-            this.matchService.getAllMatchs().subscribe(
-              (data) => {
-                this.matchs = data.data[0];
-              })
-          }
-          if(this.viewTournament == true){
-            this.tournamentService.getTournaments().subscribe(
-              (data) => {
-                this.tournaments = data.data[0];
-              })
-          }
-        
-        }, function(error){
-          if(this.viewMatch == false && this.viewTournament == false){
-          this_aux.mapService.getClubes(this_aux.lat, this_aux.lng).subscribe(
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.location = resp.coords;
+      this.lat = resp.coords.latitude;
+      this.lng = resp.coords.longitude;
+     }).catch((error) => {
+      this.lat = -34.604486;
+      this.lng = -58.396329;
+     });
+
+     if(this.viewMatch == false && this.viewTournament == false){
+      this.mapService.getClubes(this.lat, this.lng).subscribe(
         (data) => {
-          this_aux.places = data.data[0].results;
+          this.places = data.data[0].results;
         })
-      }
-      if(this.viewMatch == true){
-        this.matchService.getAllMatchs().subscribe(
-          (data) => {
-            this.matchs = data.data[0];
-          })
-      }
-      if(this.viewTournament == true){
-        this.tournamentService.getTournaments().subscribe(
-          (data) => {
-            this.tournaments = data.data[0];
-          })
-      }
-    });
     }
-
+    if(this.viewMatch == true){
+      this.matchService.getAllMatchs().subscribe(
+        (data) => {
+          this.matchs = data.data[0];
+        })
+    }
+    if(this.viewTournament == true){
+      this.tournamentService.getTournaments().subscribe(
+        (data) => {
+          this.tournaments = data.data[0];
+        })
+    }
     
     var isMobile = window.matchMedia("only screen and (max-width: 576px)");
     if (isMobile.matches) {
@@ -148,6 +129,7 @@ export class MapComponent implements OnInit {
     this.isNewUser = localStorage.getItem("new_user");
 
   }
+  
 
   seeMatch(match){
 
@@ -413,12 +395,13 @@ export class MapComponent implements OnInit {
           <p class="black-text left-align">${ratingHtml}</p>
         </div>
       </div>
-      <a id="favoriteclub" class="waves-effect green waves-light btn-large">Asignar favorito</a>
-      <a id="cancel" class="waves-effect red waves-light btn-large">Cancelar</a>
+      <a id="favoriteclub" class="waves-effect button-modal-green green waves-light btn-large">Asignar favorito</a>
+      <br><br>
+      <a id="cancel" class="waves-effect button-modal-red red waves-light btn-large">Cancelar</a>
       `;
   
       swal({
-        title: "Asignar como favorito", 
+        title: "Club Favorito", 
         html: textHtml,  
         showConfirmButton: false 
       }).catch(swal.noop);
@@ -428,12 +411,12 @@ export class MapComponent implements OnInit {
         this.mapService.setClubFavorite(marker.place_id).subscribe(
           (response)=>{
             swal({
-              title: 'Club favorito asignado!',
+              title: 'Club asignado!',
               text: 'Felicidades, tienes un club favorito!',
               type: 'success',
               showCloseButton: true,
               showConfirmButton: false
-            });
+            }).catch(swal.noop);
             setTimeout(function(){ this_aux.navCtrl.push(HomePage); }, 3000);
           } ,
         )
@@ -591,12 +574,17 @@ export class MapComponent implements OnInit {
 
   }
 
+  goExplorar(){
+    this.navCtrl.parent.select(1);
+  }
   goCreateMatch(){
     this.navCtrl.push(this.explorar,{option: "match"})
   }
   goCreateTournament(){
     this.navCtrl.push(this.explorar,{option: "tournament"})
   }
+  
+  
 
 
 }

@@ -33,7 +33,8 @@ import { CollapsibleModule } from 'angular2-collapsible';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { MaterializeModule } from "angular2-materialize";
 import { LoadersCssModule } from 'angular2-loaders-css';
-
+//Geolocalizacion
+import { Geolocation } from '@ionic-native/geolocation';
 
 //Pipes
 import { SafePipe } from './pipes/safe.pipe';
@@ -48,6 +49,7 @@ import { StatsPage } from '../pages/stats/stats';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { TournamentPage } from '../pages/tournament/tournament';
 import { ExplorarPage } from '../pages/explorar/explorar';
+import { ClubPage } from '../pages/club/club';
 
 //Componentes
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -72,6 +74,7 @@ import { HeaderAuxComponent } from './components/header/header';
     RegisterPage,
     StatsPage,
     NotificationsPage,
+    ClubPage,
     TournamentPage,
     ExplorarPage,
     HeaderComponent,
@@ -115,6 +118,7 @@ import { HeaderAuxComponent } from './components/header/header';
     NotificationsPage,
     TournamentPage,
     ExplorarPage,
+    ClubPage,
   ],
   providers: [
     StatusBar,
@@ -129,6 +133,7 @@ import { HeaderAuxComponent } from './components/header/header';
     RequestFriendService,
     RequestMatchService,
     MatchService,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

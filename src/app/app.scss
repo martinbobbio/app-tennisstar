@@ -71,15 +71,19 @@ body::-webkit-scrollbar-thumb
     color: #ff9800 !important;
   }
 
+.map-big{
+    height: 500px;
+}
+.map-small{
+    height: 350px;
+}
+
 
 /*Mediaqueries*/
 
 /*Mobile*/
 @media only screen and (max-width: 576px) {
 
-    agm-map {
-        height: 350px !important;
-    }
     .no-margin-mobile{
         margin-top:0px !important;
     }
@@ -153,7 +157,23 @@ body::-webkit-scrollbar-thumb
     display: inline-block;
     font-size: 16px;
 }
-
-.scroll-content{
-    margin-bottom:0px !important;
+.button-modal-red {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.button-modal-green {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }

@@ -137,7 +137,7 @@
             </li>
         </ul>
         <div style="text-align: center">
-            <a href="explorar/verPartidos" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más partidos</a>
+            <a (click)="viewMatchs()" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más partidos</a>
         </div>
     </div>
 
@@ -147,7 +147,7 @@
     <div>
         <p class="orange-text bold">Clubes</p>
         <ul *ngFor="let club of clubs" style="padding-left:0px;">
-            <ion-card>
+            <ion-card (click)="goClub(club.key)">
                 <ion-card-header>
                     <ion-grid>
                         <ion-row>
@@ -170,7 +170,7 @@
             </ion-card>
         </ul>
         <div style="text-align: center">
-            <a href="explorar/favoriteClub" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Asignar mi club</a>
+            <a (click)="assignClub()" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Asignar mi club</a>
         </div>
     </div>
 
@@ -194,12 +194,12 @@
                 <ion-card-content style="min-height: 0px;">
                     
                     <p>{{tournament.date}}</p>
-                    <a ion-button clear color="secondary" href="tournament/{{tournament.id}}" class="btn-flat orange-text bold">Ver torneo</a>
+                    <a ion-button clear color="secondary" (click)="infoTournament(tournament.id)" class="btn-flat orange-text bold">Ver torneo</a>
                 </ion-card-content>
             </ion-card>
         </ul>
         <div style="text-align: center">
-            <a href="explorar/verTorneos" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más torneos</a>
+            <a (click)="viewTournaments()" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Ver más torneos</a>
         </div>
     </div>
 

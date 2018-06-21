@@ -59,7 +59,7 @@ export class TournamentPage {
             type: 'info',
             showCloseButton: true,
             showConfirmButton: false
-          });
+          }).catch(swal.noop);;
           this.getTournament();
         }
       });
@@ -83,7 +83,7 @@ export class TournamentPage {
             type: 'success',
             showCloseButton: true,
             showConfirmButton: false
-          });
+          }).catch(swal.noop);;
           this.getTournament();
         }else if(status == "error"){
           swal({
@@ -92,7 +92,7 @@ export class TournamentPage {
             type: 'error',
             showCloseButton: true,
             showConfirmButton: false
-          });
+          }).catch(swal.noop);;
         }
       });
   }
