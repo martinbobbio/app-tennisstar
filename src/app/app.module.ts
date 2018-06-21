@@ -50,6 +50,8 @@ import { NotificationsPage } from '../pages/notifications/notifications';
 import { TournamentPage } from '../pages/tournament/tournament';
 import { ExplorarPage } from '../pages/explorar/explorar';
 import { ClubPage } from '../pages/club/club';
+import { SearchUserPage } from '../pages/searchuser/searchuser';
+import { UserPage } from '../pages/user/user';
 
 //Componentes
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -76,7 +78,9 @@ import { HeaderAuxComponent } from './components/header/header';
     NotificationsPage,
     ClubPage,
     TournamentPage,
+    UserPage,
     ExplorarPage,
+    SearchUserPage,
     HeaderComponent,
     FooterComponent,
     MapComponent,

@@ -9,12 +9,12 @@
                 <ion-card-header>
                     <ion-grid>
                         <ion-row>
-                            <ion-col col-3>
+                            <ion-col col-3 (click)="goUser(user.id)" >
                                 <img src="{{path}}{{user.path}}" alt="" class="circle pointer">
                             </ion-col>
                             <ion-col col-1>
                             </ion-col>
-                            <ion-col col-8>
+                            <ion-col col-8 (click)="goUser(user.id)" >
                                 <br>
                                 <span class="title bold pointer">{{user.firstname}} {{user.lastname}}</span>
                             </ion-col>
@@ -22,7 +22,7 @@
                     </ion-grid>
                 </ion-card-header>
                 <ion-card-content style="min-height: 0px;">
-                    <p>{{user.gameStyle}} -
+                    <p (click)="goUser(user.id)" >{{user.gameStyle}} -
                         {{user.gameLevel}}
                     </p>
                     <br>
@@ -31,7 +31,7 @@
             </ion-card>
         </ul>
         <div style="text-align: center;">
-            <a href="buscarUsuarios" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Buscar usuarios</a>
+            <a (click)="goSearchUser()" ion-button color="secondary" class="waves-effect waves-light  btn gradient-45deg-amber-amber box-shadow-none border-round mr-1">Buscar usuarios</a>
         </div>
     </div>
 

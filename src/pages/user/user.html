@@ -1,0 +1,368 @@
+<ion-content>
+
+  <headeraux nameHeader="Usuario"></headeraux>
+  <br><br>
+
+  <div *ngIf="user" id="profile-page-header" class="card">
+      <div class="card-image">
+          <div *ngIf="mobile" class="orange card-image-desktop"></div>
+      </div>
+      <div class="card-content-size">
+        <div class="row" style="margin-top:60px;">
+            <ion-grid>
+                <ion-row>
+                  <ion-col col-6>
+                      <figure class="card-profile-image">
+                          <br>
+                          <img src="{{path}}{{user.path}}" alt="profile image" class="circle z-depth-2 pointer white" width="100" height="100">
+                      </figure>
+                  </ion-col>
+                  <ion-col col-6>
+                      <h3 *ngIf="mobile" class="bold white-text">{{user.username}} </h3>
+                      <ng-container *ngIf="user.friends">
+                        <p *ngIf="user.friends.length != 0" ion-button color="primary" clear (click)="seeFriends()">Ver Amigos({{user.friends.length}})</p>
+                      </ng-container>
+                      <ng-container *ngIf="!isFriend && compareUser && !isRequestFriend">
+                          <br><br>
+                          <p ion-button color="primary" (click)="sendRequestFriend(user.id)" id="btn-request-friend">Solicitud amistad</p>
+                      </ng-container>
+                      <ng-container *ngIf="!isFriend && compareUser && isRequestFriend">
+                          <br><br>
+                          <p>{{isRequestFriendMsg}}</p>
+                      </ng-container>
+                      <ng-container *ngIf="isFriend && compareUser && !isRequestMatch">
+                          <br><br>
+                          <p ion-button color="primary" clear (click)="openRequesForm()" id="btn-request-match">Solicitud partido</p>
+                      </ng-container>
+                      <ng-container *ngIf="isFriend && compareUser && isRequestMatch">
+                          <br><br>
+                          <p>{{isRequestMatchMsg}}</p>
+                      </ng-container>
+                      <ng-container *ngIf="user.googlePlaceId">
+                          <br><br>
+                          <p ion-button color="primary" clear >Ver club favorito</p>
+                      </ng-container>
+                  </ion-col>
+                </ion-row>
+            </ion-grid>
+          <div class="col m8 s12 mobile-ajust">
+            
+          </div>
+        </div>
+        <div class="card-content container">
+                <ion-grid>
+                    <ion-row>
+                      <ion-col col-12>
+                        <h5 *ngIf="mobile" class="bold white-text">{{user.level}}</h5>
+                        <hr>
+                      </ion-col>
+                      <ion-col col-6>
+                          <h4 class="card-title bold white-text">{{user.firstname}} {{user.lastname}}</h4>
+                          <p class="medium-small bold black-text">Tenista</p> 
+                      </ion-col>
+                      <ion-col col-6>
+                          <h4 class="card-title bold white-text">{{user.gameLevel}}</h4>
+                          <p class="medium-small bold black-text">Nivel de juego</p>
+                      </ion-col>
+                      <ion-col col-6>
+                          <h4 class="card-title bold white-text">{{user.gameStyle}}</h4>
+                          <p class="medium-small bold black-text">Estilo de juego</p> 
+                      </ion-col>
+                      <ion-col col-6>
+                          <h4 class="card-title bold white-text">{{user.backhandType}}</h4>
+                          <p class="medium-small bold black-text">Tipo de reves</p>
+                      </ion-col>
+                    </ion-row>
+                </ion-grid>
+        </div>
+      </div>
+    </div>
+
+  <div class="container" id="newMatchForm" style="display:none">
+    <br>
+    <h4 *ngIf="user" class="orange-text">Invitar a {{user.username}} a tu club favorito </h4>
+
+    <form (ngSubmit)="sendRequestMatch()" [formGroup]="formMatch" novalidate="novalidate" class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+            <input formControlName="title" id="title" type="text" class="validate">
+            <label for="title">Nombre del partido</label>
+            </div>
+            <div class="col s6">
+                <small class="grey-text">Fecha</small>
+                <input formControlName="date" type="text" class="datepicker">
+            </div>
+            <div class="col s6">
+                <small class="grey-text">Hora</small>
+                <input formControlName="hour" type="text" class="timepicker">
+            </div>
+            <div class="col s12">
+            <br>
+            <button type='submit' id="btn_submit" name='btn_submit' class='col s12 btn btn-large waves-effect orange'>Enviar invitación</button>
+            </div>
+        </div>
+        </form>
+  </div>
+
+
+  <div *ngIf="user">
+    <collapsible-list [type]="'expandable'" style="margin-top: 0px !important">
+    <collapsible-list-item *ngIf="user_aux && compareUser">
+        <collapsible-header class="waves-effect green">
+            <h4 class="green-text">Frente a frente </h4>
+        </collapsible-header>
+        <collapsible-body [expanded]="false">
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>{{user.username}}</th>
+                        <th>{{user_aux.username}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="bold">Nivel</td>
+                        <td>{{user.level}}</td>
+                        <td>{{user_aux.level}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Categoria</td>
+                        <td>{{user.gameLevel}} - {{user.gameStyle}}</td>
+                        <td>{{user_aux.gameLevel}} - {{user_aux.gameStyle}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #d0d0d0;">
+                        <td class="bold">Edad</td>
+                        <td class="black-text">{{user.age}} años</td>
+                        <td>{{user_aux.age}} años</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Partido Singles</td>
+                        <td><span class="green-text">{{user.countSinglesWin}}W</span> <span class="red-text">{{user.countSinglesLoss}}L</span> ({{user.percentSingles}}%)</td>
+                        <td><span class="green-text">{{user_aux.countSinglesWin}}W</span> <span class="red-text">{{user_aux.countSinglesLoss}}L</span> ({{user_aux.percentSingles}}%)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #d0d0d0;">
+                        <td class="bold">Partido Dobles</td>
+                        <td><span class="green-text">{{user.countDoblesWin}}W</span> <span class="red-text">{{user.countDoblesLoss}}L</span> ({{user.percentDobles}}%)</td>
+                        <td><span class="green-text">{{user_aux.countDoblesWin}}W</span> <span class="red-text">{{user_aux.countDoblesLoss}}L</span> ({{user_aux.percentDobles}}%)</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Torneo pequeño <br>(Victorias)</td>
+                        <td>
+                            Semifinal: {{user.smallSemis}}<br>
+                            Final: {{user.smallFinal}}<br>
+                        </td>
+                        <td>
+                            Semifinal: {{user_aux.smallSemis}}<br>
+                            Final: {{user_aux.smallFinal}}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Torneo mediano <br>(Victorias)</td>
+                        <td>
+                            Cuartos de final: {{user.mediumCuartos}}<br>
+                            Semifinal: {{user.mediumSemis}}<br>
+                            Final: {{user.mediumFinal}}<br>
+                        </td>
+                        <td>
+                            Cuartos de final: {{user_aux.mediumCuartos}}<br>
+                            Semifinal: {{user_aux.mediumSemis}}<br>
+                            Final: {{user_aux.mediumFinal}}<br>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #d0d0d0;">
+                        <td class="bold" >Torneo grande <br>(Victorias)</td>
+                        <td>
+                            Octavos de final: {{user.bigOctavos}} <br>
+                            Cuartos de final: {{user.bigCuartos}}<br>
+                            Semifinal: {{user.bigSemis}}<br>
+                            Final: {{user.bigFinal}}<br>
+                        </td>
+                        <td>
+                            Octavos de final: {{user_aux.bigOctavos}} <br>
+                            Cuartos de final: {{user_aux.bigCuartos}}<br>
+                            Semifinal: {{user_aux.bigSemis}}<br>
+                            Final: {{user_aux.bigFinal}}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Frente a Frente</td>
+                        <td>
+                            <div class="row">
+                                <div class="col m10">
+                                    <p>Singles {{user.h2hSingles}}</p>
+                                    <p>Dobles {{user.h2hDobles}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col m10">
+                                    <p>Singles {{user_aux.h2hSingles}}</p>
+                                    <p>Dobles {{user_aux.h2hDobles}}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </collapsible-body>
+    </collapsible-list-item>
+
+    <collapsible-list-item *ngIf="user.userMatch">
+        <collapsible-header class="waves-effect green">
+            <h4 class="green-text">Partidos </h4>
+        </collapsible-header>
+        <collapsible-body [expanded]="false">
+        <p class="bold">Singles</p>
+            <ul class="collection">
+                <ng-container *ngFor="let um of user.userMatch">
+                <li *ngIf="um.matchType == 'Singles'" class="collection-item">
+                    <div class="row">
+                        <div class="col s6">
+                            <p style="margin-bottom:7px !important;">{{um.matchTitle}}</p>
+                            <p style="margin-top:0px !important;">
+                                <ng-container *ngIf="um.win == true">
+                                    <span class="green-text bold">W</span>
+                                </ng-container>
+                                <ng-container *ngIf="um.win == false">
+                                    <span class="red-text bold">L</span>
+                                </ng-container>
+                                {{um.score}}
+                            </p>
+                        </div>
+                        <div class="col s6 center-align">
+                            <p style="margin-bottom:7px !important;">
+                                <a href="profile/{{um.team1aId}}" class="bold black-text">{{um.team1a}}</a> 
+                                vs 
+                                <a href="profile/{{um.team2aId}}" class="bold black-text">{{um.team2a}}</a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </ng-container>
+            </ul>
+            <p class="bold">Dobles</p>
+            <ul class="collection">
+                <ng-container *ngFor="let um of user.userMatch">
+                <li *ngIf="um.matchType == 'Dobles'" class="collection-item">
+                    <div class="row">
+                        <div class="col s6">
+                            <p style="margin-bottom:7px !important;">{{um.matchTitle}}</p>
+                            <p style="margin-top:0px !important;">
+                                <ng-container *ngIf="um.win == true">
+                                    <span class="green-text bold">W</span>
+                                </ng-container>
+                                <ng-container *ngIf="um.win == false">
+                                    <span class="red-text bold">L</span>
+                                </ng-container>
+                                {{um.score}}
+                            </p>
+                        </div>
+                        <div class="col s6 center-align">
+                            <p style="margin-bottom:7px !important;">
+                                <a href="profile/{{um.team1aId}}" class="bold black-text">{{um.team1a}}</a> - <a href="profile/{{um.team1bId}}" class="bold black-text">{{um.team1b}}</a><br>
+                                vs<br>
+                                <a href="profile/{{um.team2aId}}" class="bold black-text">{{um.team2a}}</a> - <a href="profile/{{um.team2bId}}" class="bold black-text">{{um.team2b}}</a><br>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </ng-container>
+            </ul>
+        </collapsible-body>
+    </collapsible-list-item>
+    
+    <collapsible-list-item>
+        <collapsible-header class="waves-effect green">
+            <h4 class="green-text">Torneos </h4>
+        </collapsible-header>
+        <collapsible-body [expanded]="false">
+        <p class="bold">Finales</p>
+            <ul class="collection">
+                <ng-container *ngFor="let um of user.tournaments">
+                <li *ngIf="um.instance == 'Final'" class="collection-item">
+                    <div class="row">
+                        <div class="col s12">
+                            <a class="orange-text" href="/tournament/{{um.id}}">
+                                <p style="margin-bottom:7px !important;">{{um.title}}</p>
+                            </a>
+                            <p style="margin-top:0px !important;">
+                                <ng-container *ngIf="um.win == true">
+                                    <span class="green-text bold">W</span>
+                                </ng-container>
+                                <ng-container *ngIf="um.win == false">
+                                    <span class="red-text bold">L</span>
+                                </ng-container>
+                                {{um.score}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </ng-container>
+            </ul>
+            <p class="bold">Semifinales</p>
+            <ul class="collection">
+                <ng-container *ngFor="let um of user.tournaments">
+                <li *ngIf="um.instance == 'Semifinal'" class="collection-item">
+                    <div class="row">
+                        <div class="col s12">
+                            <a class="orange-text" href="/tournament/{{um.id}}">
+                                <p style="margin-bottom:7px !important;">{{um.title}}</p>
+                            </a>
+                            <p style="margin-top:0px !important;">
+                                <ng-container *ngIf="um.win == true">
+                                    <span class="green-text bold">W</span>
+                                </ng-container>
+                                <ng-container *ngIf="um.win == false">
+                                    <span class="red-text bold">L</span>
+                                </ng-container>
+                                {{um.score}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </ng-container>
+            </ul>
+            <p class="bold">Cuartos de final</p>
+            <ul class="collection">
+                <ng-container *ngFor="let um of user.tournaments">
+                <li *ngIf="um.instance == 'Cuartos de final'" class="collection-item">
+                    <div class="row">
+                        <div class="col s12">
+                            <a class="orange-text" href="/tournament/{{um.id}}">
+                                <p style="margin-bottom:7px !important;">{{um.title}}</p>
+                            </a>
+                            <p style="margin-top:0px !important;">
+                                <ng-container *ngIf="um.win == true">
+                                    <span class="green-text bold">W</span>
+                                </ng-container>
+                                <ng-container *ngIf="um.win == false">
+                                    <span class="red-text bold">L</span>
+                                </ng-container>
+                                {{um.score}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                </ng-container>
+            </ul>
+        </collapsible-body>
+    </collapsible-list-item>
+        <collapsible-list-item>
+          <collapsible-header class="waves-effect green">
+            <h4 *ngIf="!compareUser" class="green-text">Atributos: </h4>
+            <h4 *ngIf="compareUser" class="green-text">Emparejamiento: </h4>
+          </collapsible-header>
+          <collapsible-body [expanded]="false">
+            <canvas *ngIf="!compareUser" baseChart scale="25" [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
+            <canvas *ngIf="compareUser && user_aux" baseChart scale="25" [datasets]="radarChartData" [labels]="radarChartLabels" [chartType]="radarChartType"></canvas>
+          </collapsible-body>
+      </collapsible-list-item>
+    </collapsible-list>
+    
+    <br><br><br>
+
+  </div>
+
+</ion-content>
