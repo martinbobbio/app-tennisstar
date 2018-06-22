@@ -3,18 +3,14 @@ import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { RequestFriendService } from '../../services/request-friend.service';
 import { MatchService } from '../../services/match.service';
-import { NavController } from "ionic-angular";
 import { TournamentService } from '../../services/tournament.service';
 import { MapService } from '../../services/map.service';
-<<<<<<< HEAD
 import { NavController } from "ionic-angular";
 import { ExplorarPage } from '../../../pages/explorar/explorar';
 import { TournamentPage } from '../../../pages/tournament/tournament';
 import { ClubPage } from '../../../pages/club/club';
-=======
-import { SearchUserPage } from '../../../pages/searchuser/searchuser';
 import { UserPage } from '../../../pages/user/user';
->>>>>>> 0634de7181365c1ff4b11bb915b14dc2866c13af
+import { SearchUserPage } from '../../../pages/searchuser/searchuser';
 
 import * as swal from 'sweetalert2';
 
@@ -40,17 +36,11 @@ export class HomeExplorarComponent implements OnInit {
 
   path:string = environment.backPathImage;
 
-<<<<<<< HEAD
   explorar = ExplorarPage;
   tournament = TournamentPage;
   club = ClubPage;
 
   constructor(public userService:UserService,public mapService:MapService,public navCtrl:NavController, public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
-=======
-  searchuser = SearchUserPage;
-
-  constructor(public userService:UserService,public navCtrl: NavController, public mapService:MapService,public tournamentService:TournamentService, public requestFriendService:RequestFriendService, public matchService:MatchService) { }
->>>>>>> 0634de7181365c1ff4b11bb915b14dc2866c13af
 
   ngOnInit() {
 

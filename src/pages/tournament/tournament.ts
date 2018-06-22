@@ -59,7 +59,7 @@ export class TournamentPage {
             type: 'info',
             showCloseButton: true,
             showConfirmButton: false
-          }).catch(swal.noop);;
+          }).catch(swal.noop);
           this.getTournament();
         }
       });

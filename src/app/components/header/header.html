@@ -42,7 +42,7 @@
       </ion-row>
       <ion-item-group>
         <ion-item-divider color="primary">Cuenta</ion-item-divider>
-        <ion-item>Ver perfil</ion-item>
+        <ion-item (click)="goProfile()">Ver perfil</ion-item>
         <ion-item (click)="changuePassword()">Cambiar contraseña</ion-item>
         <ion-item (click)="viewFriends()">Lista de amigos</ion-item>
         <ion-item (click)="logout()">Salir</ion-item>

@@ -13,6 +13,7 @@ import { StatsPage } from '../../../pages/stats/stats';
 import { TournamentPage } from '../../../pages/tournament/tournament';
 import { NotificationsPage } from '../../../pages/notifications/notifications';
 import { ExplorarPage } from '../../../pages/explorar/explorar';
+import { UserPage } from '../../../pages/user/user';
 
 import * as swal from 'sweetalert2';
 declare let $: any;
@@ -27,6 +28,7 @@ export class HeaderAuxComponent implements OnInit {
   notifications = NotificationsPage;
   tournament = TournamentPage;
   explorar = ExplorarPage;
+  users = UserPage;
 
   openMenu:boolean = false;
   openMenuScroll = false;
@@ -130,7 +132,7 @@ export class HeaderAuxComponent implements OnInit {
       });
 
       $(document).on('click', ".goProfile", function() {
-        window.location.href = "/profile/"+this.id;
+        this.navCtrl.push(UserPage,{id: this.id})
       });
 
     }else{
@@ -154,17 +156,21 @@ export class HeaderAuxComponent implements OnInit {
 
         for (let f of this.friends) {
           textHtml += `
-          <div style="width:25%;display:inline-block">
-            <img id="${f.id_user}" src="${this.path}${f.path}" alt="" class="circle pointer responsive-img goProfile">
+          <div id="goUser-${f.id}" style="width:25%;display:inline-block">
+            <img id="${f.id_user}" src="${this.path}${f.path}" alt="" class="circle pointer responsive-img">
           </div>
-          <div style="width:75%;display:inline-block">
-            <p id="${f.id_user}" class="bold left-align goProfile pointer">${f.firstname} ${f.lastname}</p>
+          <div id="goUser-${f.id} style="width:75%;display:inline-block">
+            <p id="${f.id_user}" class="bold left-align pointer">${f.firstname} ${f.lastname}</p>
             <p class="left-align">${f.gameLevel} - ${f.gameStyle}
             </p>
             <button id="${f.id}" class="button-modal removeFriend">Borrar</button>
             <br><br><br>
           </div>
           `
+          $(document).on('click', "#goUser-"+f["id"], ()=> {
+            swal.close();
+            this_aux.navCtrl.push(this_aux.users,{id: f["id"]})
+          });
         }
         if(textHtml == ""){
           textHtml = "Aún no tienes amigos, agrega a jugadores similares a tu juego"
@@ -192,7 +198,8 @@ export class HeaderAuxComponent implements OnInit {
       });
 
       $(document).on('click', ".goProfile", function() {
-        window.location.href = "/profile/"+this.id;
+        swal.close();
+        this_aux.navCtrl.push(UserPage,{id: this.id})
       });
   }
 
@@ -279,6 +286,8 @@ export class HeaderAuxComponent implements OnInit {
 
   adminTournament(){
 
+    let this_aux = this;
+
     let textHtml = ``
     for (let t of this.myTournaments) {
       textHtml += `
@@ -303,7 +312,7 @@ export class HeaderAuxComponent implements OnInit {
         `
         $(document).on('click', "#view-"+t["id"], ()=> {
           swal.close();
-          this.navCtrl.push(this.tournament,{id: t["id"]})
+          this_aux.navCtrl.push(this.tournament,{id: t["id"]})
         });
       }
     if(this.myTournaments.length == 0){
@@ -595,7 +604,8 @@ export class HeaderAuxComponent implements OnInit {
       }
 
       $(document).on('click', ".goProfile", function() {
-        window.location.href = "/profile/"+this.id;
+        swal.close();
+        this_aux.navCtrl.push(UserPage,{id: this.id})
       });
 
       $(document).on('click', ".uploadResult", function(e) {
@@ -862,6 +872,9 @@ export class HeaderAuxComponent implements OnInit {
   }
   goAssignClub(){
     this.navCtrl.push(this.explorar,{option: "favoriteClub"})
+  }
+  goProfile(){
+    this.navCtrl.push(UserPage);
   }
 
 }

@@ -3,56 +3,41 @@
     <br><br><br>
     
       <div *ngIf="entity" id="profile-page-header" class="orange">
-          <div class="card-image">
-              <div *ngIf="mobile"></div>
-              <div *ngIf="!mobile"></div>                
-          </div>
-          <div class="card-content-size">
-            <div class="row">>
-              <div *ngIf="mobile" class="col 12">  
-                <figure class="card-profile-image">
-                    <br>
-                    <img src="{{entityPhoto}}" alt="profile image" class="z-depth-2 responsive-img">
-                </figure>
-              </div>
-              <div class="col m6">
-                <h1 *ngIf="!mobile" class="bold white-text">{{entity.name}}</h1>
-                <h3 *ngIf="mobile" class="bold white-text">{{entity.name}}</h3>
-                
+        <ion-grid>
+            <ion-row>
+                <ion-col col-5>
+                <br>
+                <img src="{{entityPhoto}}" alt="profile image" class="z-depth-2 responsive-img">
+                </ion-col> 
+                <ion-col col-7>
+                <h3 class="bold white-text">{{entity.name}}</h3>
                 <a href="{{entity.website}}" target="_blank">
-                  <button ion-button color="primary">Sitio Web <i class="material-icons left">language</i></button>
+                    <button ion-button color="primary">Sitio Web <i class="material-icons left">language</i></button>
                 </a>
-                
-              </div>
-            </div>
-            <div class="card-content container">
-                <ion-grid>
-                    <ion-row>
-                      <ion-col col-6>
-                        <span class="medium-small bold black-text">Direccion</span>  
-                        <p style="height: 50px;" [innerHTML]="entity.adr_address" class="bold white-text"></p>
-                      </ion-col>
-                      <ion-col col-6>
-                        <span class="medium-small bold black-text">Contacto</span>                      
-                        <p style="height: 50px;" class="card-title bold white-text">{{entity.international_phone_number}}</p>
-                      </ion-col>
-                      <ion-col col-6>
-                        <span class="medium-small bold black-text">Reputacion</span>  
-                        <p style="height: 50px;" class="card-title bold white-text" [innerHTML]="entityStars"></p>
-                      </ion-col>
-                      <ion-col col-6>
-                        <span class="medium-small bold black-text">Estado</span>  
-                        <p style="height: 50px;" class="card-title bold white-text" [innerHTML]="entityOpening"></p>
-                      </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-          </div>
+                </ion-col> 
+                <ion-col col-6>
+                <span class="medium-small bold black-text">Direccion</span>  
+                <p style="height: 50px;" [innerHTML]="entity.adr_address" class="bold white-text"></p>
+                </ion-col>
+                <ion-col col-6>
+                <span class="medium-small bold black-text">Contacto</span>                      
+                <p style="height: 50px;" class="card-title bold white-text">{{entity.international_phone_number}}</p>
+                </ion-col>
+                <ion-col col-6>
+                <span class="medium-small bold black-text">Reputacion</span>  
+                <p style="height: 50px;" class="card-title bold white-text" [innerHTML]="entityStars"></p>
+                </ion-col>
+                <ion-col col-6>
+                <span class="medium-small bold black-text">Estado</span>  
+                <p style="height: 50px;" class="card-title bold white-text" [innerHTML]="entityOpening"></p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
       </div>
     
       <div *ngIf="entity" class="container">
     
-            <collapsible-list [type]="'expandable'" style="margin-top:50px;">
+            <collapsible-list [type]="'expandable'">
                 <collapsible-list-item >
                     <collapsible-header class="waves-effect green">
                         <h4 class="green-text">Opiniones </h4>
@@ -131,7 +116,7 @@
                     </collapsible-body>
                 </collapsible-list-item>
             </collapsible-list>
-    
-      </div>
+    <br><br>
+    </div>
     
 </ion-content>

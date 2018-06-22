@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { forEach } from '@angular/router/src/utils/collection';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ClubPage } from '../club/club';
 
 import * as swal from 'sweetalert2';
 
@@ -131,7 +132,6 @@ export class UserPage {
             (response_aux)=>{
               this.user_aux = response_aux.data[0];
               let percentSingles = 0;
-              console.log(this.user_aux);
               if(this.user_aux["countSinglesLoss"]){
                 if(this.user_aux["countSinglesLoss"] != 0){
                   percentSingles = Math.trunc((this.user_aux["countSinglesWin"] / (this.user_aux["countSinglesWin"] + this.user_aux["countSinglesLoss"])) * 100);
@@ -153,6 +153,7 @@ export class UserPage {
               let uaWinSingles = 0;
               let uWinDobles = 0;
               let uaWinDobles = 0;
+              if(this.user.userMatch){
               for(let um of this.user.userMatch){
                 if(um.matchType == "Singles"){
                   if(um.team2aId == this.user_aux.id){
@@ -173,6 +174,7 @@ export class UserPage {
                   }
                 }
               }
+            }
               this.user["h2hSingles"] = uWinSingles;
               this.user_aux["h2hSingles"] = uaWinSingles;
               this.user["h2hDobles"] = uWinDobles;
@@ -210,8 +212,8 @@ export class UserPage {
     for (let f of this.user.friends) {
       textHtml += `
       <div class="card green">
-      <div class="card-content left-align white-text">
-        <a href="/profile/${f.id_user}"><span id="${f.id_user}" class="card-title white-text pointer goProfile">${f.username}</span></a>
+      <div class="card-content left-align">
+        <a href="/profile/${f.id_user}"><span id="${f.id_user}" class="card-title pointer goProfile">${f.username}</span></a>
         <br>
         <div class="row">
           <div class="col s3 left-align ">
@@ -230,11 +232,11 @@ export class UserPage {
     }
 
     swal({
-      title: "Amigos de "+this.user.username, 
+      title: "Amigos", 
       html: textHtml,  
       showConfirmButton: false, 
       showCloseButton: true,
-    });
+    }).catch(swal.noop);
 
   }
 
@@ -324,6 +326,10 @@ export class UserPage {
               this.navCtrl.push(UserPage ,{id: this.user.id})}, 2000);
         })
       
+      }
+
+      goClub(id){
+        this.navCtrl.push(ClubPage ,{id: id});
       }
   
 

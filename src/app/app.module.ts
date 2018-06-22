@@ -54,8 +54,6 @@ import { SearchUserPage } from '../pages/searchuser/searchuser';
 import { UserPage } from '../pages/user/user';
 
 //Componentes
-import { HeaderComponent } from './components/shared/header/header.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
 import { MapComponent } from './components/map/map.component';
 import { DodecaedroComponent } from './components/dodecaedro/dodecaedro.component';
 import { NoticesComponent } from './components/notices/notices.component';
@@ -81,8 +79,6 @@ import { HeaderAuxComponent } from './components/header/header';
     UserPage,
     ExplorarPage,
     SearchUserPage,
-    HeaderComponent,
-    FooterComponent,
     MapComponent,
     DodecaedroComponent,
     NoticesComponent,
@@ -123,6 +119,8 @@ import { HeaderAuxComponent } from './components/header/header';
     TournamentPage,
     ExplorarPage,
     ClubPage,
+    UserPage,
+    SearchUserPage
   ],
   providers: [
     StatusBar,

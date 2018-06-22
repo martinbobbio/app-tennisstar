@@ -20,11 +20,11 @@
                   <ion-col col-6>
                       <h3 *ngIf="mobile" class="bold white-text">{{user.username}} </h3>
                       <ng-container *ngIf="user.friends">
-                        <p *ngIf="user.friends.length != 0" ion-button color="primary" clear (click)="seeFriends()">Ver Amigos({{user.friends.length}})</p>
+                        <p *ngIf="user.friends.length != 0" ion-button (click)="seeFriends()">Ver Amigos({{user.friends.length}})</p>
                       </ng-container>
                       <ng-container *ngIf="!isFriend && compareUser && !isRequestFriend">
                           <br><br>
-                          <p ion-button color="primary" (click)="sendRequestFriend(user.id)" id="btn-request-friend">Solicitud amistad</p>
+                          <p ion-button ion-button (click)="sendRequestFriend(user.id)" id="btn-request-friend">Solicitud amistad</p>
                       </ng-container>
                       <ng-container *ngIf="!isFriend && compareUser && isRequestFriend">
                           <br><br>
@@ -32,7 +32,7 @@
                       </ng-container>
                       <ng-container *ngIf="isFriend && compareUser && !isRequestMatch">
                           <br><br>
-                          <p ion-button color="primary" clear (click)="openRequesForm()" id="btn-request-match">Solicitud partido</p>
+                          <p ion-button (click)="openRequesForm()" id="btn-request-match">Solicitud partido</p>
                       </ng-container>
                       <ng-container *ngIf="isFriend && compareUser && isRequestMatch">
                           <br><br>
@@ -40,7 +40,7 @@
                       </ng-container>
                       <ng-container *ngIf="user.googlePlaceId">
                           <br><br>
-                          <p ion-button color="primary" clear >Ver club favorito</p>
+                          <p ion-button (click)="goClub(user.googlePlaceId)">Ver club favorito</p>
                       </ng-container>
                   </ion-col>
                 </ion-row>
@@ -112,7 +112,7 @@
             <h4 class="green-text">Frente a frente </h4>
         </collapsible-header>
         <collapsible-body [expanded]="false">
-            <table class="responsive-table">
+            <table class="responsive-table" style="font-size:10px;">
                 <thead>
                     <tr>
                         <th></th>
@@ -123,48 +123,48 @@
                 <tbody>
                     <tr>
                         <td class="bold">Nivel</td>
-                        <td>{{user.level}}</td>
-                        <td>{{user_aux.level}}</td>
+                        <td><br>{{user.level}}</td>
+                        <td><br>{{user_aux.level}}</td>
                     </tr>
                     <tr>
                         <td class="bold">Categoria</td>
-                        <td>{{user.gameLevel}} - {{user.gameStyle}}</td>
-                        <td>{{user_aux.gameLevel}} - {{user_aux.gameStyle}}</td>
+                        <td><br>{{user.gameLevel}} - {{user.gameStyle}}</td>
+                        <td><br>{{user_aux.gameLevel}} - {{user_aux.gameStyle}}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #d0d0d0;">
                         <td class="bold">Edad</td>
-                        <td class="black-text">{{user.age}} años</td>
-                        <td>{{user_aux.age}} años</td>
+                        <td class="black-text"><br>{{user.age}} años</td>
+                        <td><br>{{user_aux.age}} años</td>
                     </tr>
                     <tr>
                         <td class="bold">Partido Singles</td>
-                        <td><span class="green-text">{{user.countSinglesWin}}W</span> <span class="red-text">{{user.countSinglesLoss}}L</span> ({{user.percentSingles}}%)</td>
-                        <td><span class="green-text">{{user_aux.countSinglesWin}}W</span> <span class="red-text">{{user_aux.countSinglesLoss}}L</span> ({{user_aux.percentSingles}}%)</td>
+                        <td><span class="green-text"><br>{{user.countSinglesWin}}W</span> <span class="red-text">{{user.countSinglesLoss}}L</span> ({{user.percentSingles}}%)</td>
+                        <td><span class="green-text"><br>{{user_aux.countSinglesWin}}W</span> <span class="red-text">{{user_aux.countSinglesLoss}}L</span> ({{user_aux.percentSingles}}%)</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #d0d0d0;">
                         <td class="bold">Partido Dobles</td>
-                        <td><span class="green-text">{{user.countDoblesWin}}W</span> <span class="red-text">{{user.countDoblesLoss}}L</span> ({{user.percentDobles}}%)</td>
-                        <td><span class="green-text">{{user_aux.countDoblesWin}}W</span> <span class="red-text">{{user_aux.countDoblesLoss}}L</span> ({{user_aux.percentDobles}}%)</td>
+                        <td><span class="green-text"><br>{{user.countDoblesWin}}W</span> <span class="red-text">{{user.countDoblesLoss}}L</span> ({{user.percentDobles}}%)</td>
+                        <td><span class="green-text"><br>{{user_aux.countDoblesWin}}W</span> <span class="red-text">{{user_aux.countDoblesLoss}}L</span> ({{user_aux.percentDobles}}%)</td>
                     </tr>
                     <tr>
                         <td class="bold">Torneo pequeño <br>(Victorias)</td>
-                        <td>
+                        <td><br>
                             Semifinal: {{user.smallSemis}}<br>
                             Final: {{user.smallFinal}}<br>
                         </td>
-                        <td>
+                        <td><br>
                             Semifinal: {{user_aux.smallSemis}}<br>
                             Final: {{user_aux.smallFinal}}<br>
                         </td>
                     </tr>
                     <tr>
                         <td class="bold">Torneo mediano <br>(Victorias)</td>
-                        <td>
+                        <td><br>
                             Cuartos de final: {{user.mediumCuartos}}<br>
                             Semifinal: {{user.mediumSemis}}<br>
                             Final: {{user.mediumFinal}}<br>
                         </td>
-                        <td>
+                        <td><br>
                             Cuartos de final: {{user_aux.mediumCuartos}}<br>
                             Semifinal: {{user_aux.mediumSemis}}<br>
                             Final: {{user_aux.mediumFinal}}<br>
@@ -172,13 +172,13 @@
                     </tr>
                     <tr style="border-bottom: 1px solid #d0d0d0;">
                         <td class="bold" >Torneo grande <br>(Victorias)</td>
-                        <td>
+                        <td><br>
                             Octavos de final: {{user.bigOctavos}} <br>
                             Cuartos de final: {{user.bigCuartos}}<br>
                             Semifinal: {{user.bigSemis}}<br>
                             Final: {{user.bigFinal}}<br>
                         </td>
-                        <td>
+                        <td><br>
                             Octavos de final: {{user_aux.bigOctavos}} <br>
                             Cuartos de final: {{user_aux.bigCuartos}}<br>
                             Semifinal: {{user_aux.bigSemis}}<br>
@@ -190,16 +190,16 @@
                         <td>
                             <div class="row">
                                 <div class="col m10">
-                                    <p>Singles {{user.h2hSingles}}</p>
-                                    <p>Dobles {{user.h2hDobles}}</p>
+                                    <p><br>Singles {{user.h2hSingles}}</p>
+                                    <p><br>Dobles {{user.h2hDobles}}</p>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="row">
                                 <div class="col m10">
-                                    <p>Singles {{user_aux.h2hSingles}}</p>
-                                    <p>Dobles {{user_aux.h2hDobles}}</p>
+                                    <p><br>Singles {{user_aux.h2hSingles}}</p>
+                                    <p><br>Dobles {{user_aux.h2hDobles}}</p>
                                 </div>
                             </div>
                         </td>
