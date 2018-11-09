@@ -21,11 +21,11 @@ Como usuario de Tennis-Star puedes contar con un control de tus habilidades y co
 
 Las herramientas y lenguajes utilizados para el desarrollo de la app son:
 
-Ionic
-TypeScript
-Materialize
-PHP
-MySQL
+- Ionic
+- TypeScript
+- Materialize
+- PHP
+- MySQL
 
 # Capturas
 
