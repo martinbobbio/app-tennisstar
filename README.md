@@ -40,19 +40,19 @@ MySQL
 
 ### Torneos
 
-![Image of login](src/assets/images/screen-tennisstar1.png)
+![Image of login](src/assets/images/screen-tennisstar2.png)
 
 ### Partidos
 
-![Image of login](src/assets/images/screen-tennisstar1.png)
+![Image of login](src/assets/images/screen-tennisstar3.png)
 
 ### Club
 
-![Image of login](src/assets/images/screen-tennisstar1.png)
+![Image of login](src/assets/images/screen-tennisstar4.png)
 
 ### Noticias
 
-![Image of login](src/assets/images/screen-tennisstar1.png)
+![Image of login](src/assets/images/screen-tennisstar5.png)
 
 
 
