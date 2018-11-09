@@ -34,10 +34,25 @@ MySQL
 
 # Capturas
 
-<div style="width:50%">
 ### Login
 
 ![Image of login](src/assets/images/screen-tennisstar1.png)
-</div>
+
+### Torneos
+
+![Image of login](src/assets/images/screen-tennisstar1.png)
+
+### Partidos
+
+![Image of login](src/assets/images/screen-tennisstar1.png)
+
+### Club
+
+![Image of login](src/assets/images/screen-tennisstar1.png)
+
+### Noticias
+
+![Image of login](src/assets/images/screen-tennisstar1.png)
+
 
 
