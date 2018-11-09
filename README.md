@@ -2,7 +2,7 @@
   <br>
   <a href="https://admin-tenis.tennis-star.com"><img src="https://raw.githubusercontent.com/martinbobbio/davinci-tennisstar-frontend/master/src/assets/images/logo.png" alt="Tenisstar" width="200"></a>
   <br>
-  Tennisstar - Mobile
+  Tennisstar - APP
   <br>
 </h1>
 
