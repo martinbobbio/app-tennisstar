@@ -12,11 +12,6 @@
   <a href="https://github.com/martinbobbio/davinci-tennisstar-frontend">Tennisstar - Frontend</a>
 </h4>
 
-<br>
-<p align="center">
-    <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="badge">
-</p>
-
 
 # Descripción
 
