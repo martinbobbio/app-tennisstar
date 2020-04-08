@@ -1,0 +1,8 @@
+{
+  "Ionic": {
+    "imports": ["@ionic/"],
+    "technologies": ["Mobile applications"],
+    "description": "Ionic is the app development platform for web developers",
+    "language": "JavaScript"
+  }
+}
