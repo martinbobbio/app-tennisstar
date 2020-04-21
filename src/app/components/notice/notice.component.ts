@@ -1,4 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 declare let $: any;
 
@@ -19,6 +20,7 @@ export class NoticeComponent implements OnInit {
   is_mobile = false;
   linkVideoYT:string;
   imgDisplay:number = 1;
+  backurl = environment.backUrl
 
   showImage(id){
     $("#video-"+id).fadeOut(0);
