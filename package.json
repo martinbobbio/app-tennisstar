@@ -39,7 +39,7 @@
     "angular2-loaders-css": "^1.0.9",
     "angular2-materialize": "^15.1.10",
     "auth0-js": "^9.3.2",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.1",
